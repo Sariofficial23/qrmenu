@@ -10,7 +10,7 @@
       search: "Найти блюдо…", nothing: "Ничего не найдено", cart: "Мой заказ", items: "Мой заказ",
       add: "+ Добавить", note: "Пожелания к заказу", notePh: "Например: без лука, острее, сначала салаты",
       subtotal: "Блюда", service: "Обслуживание", total: "Итого",
-      showWaiter: "Показать официанту", clear: "Очистить корзину",
+      install: "Установить", showWaiter: "Показать официанту", clear: "Очистить корзину",
       waiter: "Заказ", table: "Стол", noTable: "Без стола",
       share: "Отправить заказ", done: "Заказ принят — очистить",
       askTable: "Номер вашего стола?", save: "Готово",
@@ -21,7 +21,7 @@
       search: "Taom qidirish…", nothing: "Hech narsa topilmadi", cart: "Buyurtmam", items: "Buyurtmam",
       add: "+ Qo‘shish", note: "Buyurtma uchun izoh", notePh: "Masalan: piyozsiz, achchiqroq, avval salatlar",
       subtotal: "Taomlar", service: "Xizmat", total: "Jami",
-      showWaiter: "Ofitsiantga ko‘rsatish", clear: "Savatni tozalash",
+      install: "O‘rnatish", showWaiter: "Ofitsiantga ko‘rsatish", clear: "Savatni tozalash",
       waiter: "Buyurtma", table: "Stol", noTable: "Stolsiz",
       share: "Buyurtmani yuborish", done: "Qabul qilindi — tozalash",
       askTable: "Stolingiz raqami?", save: "Tayyor",
@@ -32,7 +32,7 @@
       search: "Search dishes…", nothing: "Nothing found", cart: "My order", items: "My order",
       add: "+ Add", note: "Order notes", notePh: "E.g. no onion, extra spicy, salads first",
       subtotal: "Dishes", service: "Service", total: "Total",
-      showWaiter: "Show to waiter", clear: "Clear cart",
+      install: "Install app", showWaiter: "Show to waiter", clear: "Clear cart",
       waiter: "Order", table: "Table", noTable: "No table",
       share: "Send order", done: "Order taken — clear",
       askTable: "Your table number?", save: "Done",
@@ -184,6 +184,7 @@
     $("doneOrder").textContent = t("done");
     $("tableAsk").textContent = t("askTable");
     $("tableSave").textContent = t("save");
+    $("installLabel").textContent = t("install");
     var tb = $("tableBadge");
     tb.hidden = !state.table;
     tb.textContent = t("table") + " " + state.table;
@@ -468,6 +469,31 @@
     // Убираем параметры из адреса, чтобы ссылка выглядела чисто
     try { history.replaceState(null, "", location.pathname); } catch (e) { /* ignore */ }
   }
+
+  // ---------- Установка как приложение (Chrome на Android/планшете) ----------
+  // Без APK и без предупреждений безопасности: иконка на экране, полный экран, работает офлайн.
+  var installEvent = null;
+  var isInstalled = ["fullscreen", "standalone"].some(function (m) {
+    return window.matchMedia && window.matchMedia("(display-mode: " + m + ")").matches;
+  });
+  window.addEventListener("beforeinstallprompt", function (e) {
+    e.preventDefault();
+    if (isInstalled) return;
+    installEvent = e;
+    $("installBtn").hidden = false;
+  });
+  window.addEventListener("appinstalled", function () {
+    installEvent = null;
+    $("installBtn").hidden = true;
+  });
+  $("installBtn").addEventListener("click", function () {
+    if (!installEvent) return;
+    installEvent.prompt();
+    installEvent.userChoice.then(function () {
+      installEvent = null;
+      $("installBtn").hidden = true;
+    });
+  });
 
   if ("serviceWorker" in navigator && location.protocol === "https:") {
     window.addEventListener("load", function () { navigator.serviceWorker.register("sw.js").catch(function () {}); });

@@ -1,6 +1,8 @@
 {
   "name": "Istanbul — Menu",
   "short_name": "Istanbul",
+  "id": "/qrmenu/",
+  "description": "Меню ресторана Istanbul",
   "start_url": "./",
   "scope": "./",
   "display": "fullscreen",

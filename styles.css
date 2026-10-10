@@ -104,8 +104,20 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
   border-radius: 999px;
   background: rgba(217, 170, 90, .15);
   color: var(--accent);
-  font-weight: 600; font-size: 14px;
+  font-weight: 600; font-size: 14px; white-space: nowrap;
 }
+.install-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 36px; padding: 0 12px; border-radius: 999px;
+  border: 1px solid rgba(217, 170, 90, .5); color: var(--accent);
+  background: rgba(217, 170, 90, .1);
+  font-size: 13px; font-weight: 700;
+}
+@media (max-width: 599px) {
+  .install-btn { width: 36px; padding: 0; justify-content: center; }
+  .install-btn span { display: none; }
+}
+.install-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .langs {
   display: flex; margin-left: auto;
   padding: 3px; border-radius: 999px;
