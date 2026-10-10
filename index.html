@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#16110d">
+  <meta name="description" content="Электронное меню ресторана">
+  <title>Меню</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero__top">
+      <div class="table-badge" id="tableBadge" hidden></div>
+      <div class="langs" id="langs" role="group" aria-label="Language">
+        <button data-lang="ru">RU</button>
+        <button data-lang="uz">UZ</button>
+        <button data-lang="en">EN</button>
+      </div>
+    </div>
+    <h1 class="hero__name" id="restName"></h1>
+    <p class="hero__tagline" id="restTagline"></p>
+    <label class="search">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 3a7.5 7.5 0 0 1 5.9 12.1l4.2 4.2-1.4 1.4-4.2-4.2A7.5 7.5 0 1 1 10.5 3Zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Z"/></svg>
+      <input id="search" type="search" autocomplete="off" enterkeyhint="search">
+    </label>
+  </header>
+
+  <nav class="cats" id="cats" aria-label="Categories"></nav>
+
+  <main id="menu" class="menu"></main>
+  <p class="empty" id="emptySearch" hidden></p>
+
+  <!-- Плавающая кнопка корзины -->
+  <button class="cart-fab" id="cartFab" hidden>
+    <span class="cart-fab__count" id="fabCount">0</span>
+    <span class="cart-fab__label" id="fabLabel"></span>
+    <span class="cart-fab__sum" id="fabSum"></span>
+  </button>
+
+  <!-- Шторка корзины -->
+  <div class="sheet" id="cartSheet" aria-hidden="true">
+    <div class="sheet__backdrop" data-close></div>
+    <section class="sheet__panel" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+      <div class="sheet__grip" data-close></div>
+      <div class="sheet__head">
+        <h2 id="cartTitle"></h2>
+        <button class="icon-btn" data-close aria-label="Close">✕</button>
+      </div>
+      <div class="cart-list" id="cartList"></div>
+      <label class="note">
+        <span id="noteLabel"></span>
+        <textarea id="orderNote" rows="2"></textarea>
+      </label>
+      <div class="totals" id="cartTotals"></div>
+      <button class="btn btn--primary" id="showWaiter"></button>
+      <button class="btn btn--ghost" id="clearCart"></button>
+    </section>
+  </div>
+
+  <!-- Экран для официанта -->
+  <div class="waiter" id="waiter" aria-hidden="true">
+    <div class="waiter__inner">
+      <div class="waiter__head">
+        <button class="icon-btn" id="waiterBack" aria-label="Back">←</button>
+        <span id="waiterTitle"></span>
+        <span></span>
+      </div>
+      <div class="waiter__table" id="waiterTable"></div>
+      <div class="waiter__time" id="waiterTime"></div>
+      <ol class="waiter__list" id="waiterList"></ol>
+      <div class="waiter__note" id="waiterNote" hidden></div>
+      <div class="waiter__total" id="waiterTotal"></div>
+      <div class="waiter__actions">
+        <button class="btn btn--dark" id="shareOrder"></button>
+        <button class="btn btn--outline" id="doneOrder"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ввод номера стола -->
+  <div class="sheet" id="tableSheet" aria-hidden="true">
+    <div class="sheet__backdrop" data-close></div>
+    <section class="sheet__panel sheet__panel--small" role="dialog" aria-modal="true">
+      <h2 id="tableAsk"></h2>
+      <input class="table-input" id="tableInput" type="number" inputmode="numeric" min="1" max="999">
+      <button class="btn btn--primary" id="tableSave"></button>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="menu.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

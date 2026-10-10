@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>QR-коды для столов</title>
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <style>
+    :root { --ink: #1d1208; --accent: #e2712f; --muted: #7a6450; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font: 16px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; color: var(--ink); background: #f3ece3; }
+    .panel { max-width: 860px; margin: 0 auto; padding: 20px 16px; }
+    h1 { font: 700 28px Georgia, serif; margin: 0 0 6px; }
+    p { color: var(--muted); margin: 0 0 16px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+    label { display: grid; gap: 4px; font-size: 14px; font-weight: 600; }
+    label.wide { grid-column: 1 / -1; }
+    input { height: 44px; padding: 0 12px; border: 1px solid #d8cbbb; border-radius: 10px; font: inherit; background: #fff; min-width: 0; }
+    button { height: 48px; padding: 0 22px; border: 0; border-radius: 12px; font: inherit; font-weight: 700; cursor: pointer; background: var(--ink); color: #fff; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+    .actions button.alt { background: transparent; color: var(--ink); border: 2px solid var(--ink); }
+
+    .sheet { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; max-width: 860px; margin: 0 auto; padding: 0 16px 40px; }
+    .card {
+      background: #fff; border-radius: 18px; padding: 18px 16px 16px; text-align: center;
+      border: 2px solid var(--ink); break-inside: avoid; page-break-inside: avoid;
+    }
+    .card__name { font: 700 22px Georgia, serif; }
+    .card__scan { font-size: 13px; color: var(--muted); margin: 4px 0 10px; }
+    .card svg { width: 100%; max-width: 190px; height: auto; display: block; margin: 0 auto; }
+    .card__table { margin-top: 10px; display: inline-block; padding: 6px 16px; border-radius: 999px; background: var(--ink); color: #fff; font-weight: 800; font-size: 18px; }
+    .card__url { margin-top: 8px; font-size: 10px; color: var(--muted); word-break: break-all; }
+
+    @media print {
+      @page { size: A4; margin: 10mm; }
+      body { background: #fff; }
+      .panel { display: none; }
+      .sheet { grid-template-columns: repeat(3, 1fr); gap: 6mm; padding: 0; max-width: none; }
+      .card { border-width: 1.5px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="panel">
+    <h1>QR-коды для столов</h1>
+    <p>Укажите адрес меню и номера столов → нажмите «Печать». На каждом QR свой номер стола — официант сразу видит, откуда заказ.</p>
+    <div class="row">
+      <label class="wide">Адрес меню (ссылка на сайт)
+        <input id="url" type="url">
+      </label>
+      <label>Столы с
+        <input id="from" type="number" min="1" value="1">
+      </label>
+      <label>по
+        <input id="to" type="number" min="1" value="12">
+      </label>
+    </div>
+    <div class="actions">
+      <button id="print">Печать</button>
+      <button class="alt" id="general">Один общий QR (без стола)</button>
+    </div>
+  </div>
+  <div class="sheet" id="sheet"></div>
+
+  <script src="vendor/qrcode.js"></script>
+  <script src="menu.js"></script>
+  <script>
+    (function () {
+      var $ = function (id) { return document.getElementById(id); };
+      var base = location.href.replace(/qr\.html.*$/, "");
+      $("url").value = base;
+      var general = false;
+
+      function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+      function card(link, table) {
+        var qr = qrcode(0, "M");
+        qr.addData(link);
+        qr.make();
+        return '<div class="card"><div class="card__name">' + esc(window.MENU.restaurant.name) + '</div>' +
+          '<div class="card__scan">Меню · Menyu · Menu</div>' +
+          qr.createSvgTag({ cellSize: 4, margin: 2, scalable: true }) +
+          (table ? '<div class="card__table">Стол ' + esc(table) + '</div>' : '') +
+          '<div class="card__url">' + esc(link.replace(/^https?:\/\//, "")) + '</div></div>';
+      }
+
+      function render() {
+        var url = $("url").value.trim() || base;
+        var sep = url.indexOf("?") >= 0 ? "&" : "?";
+        if (general) { $("sheet").innerHTML = card(url, ""); return; }
+        var from = Math.max(1, parseInt($("from").value, 10) || 1);
+        var to = Math.min(from + 199, Math.max(from, parseInt($("to").value, 10) || from));
+        var html = "";
+        for (var i = from; i <= to; i++) html += card(url + sep + "table=" + i, String(i));
+        $("sheet").innerHTML = html;
+      }
+
+      ["url", "from", "to"].forEach(function (id) { $(id).addEventListener("input", function () { general = false; render(); }); });
+      $("general").addEventListener("click", function () { general = true; render(); });
+      $("print").addEventListener("click", function () { window.print(); });
+      render();
+    })();
+  </script>
+</body>
+</html>
