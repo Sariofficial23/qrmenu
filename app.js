@@ -57,7 +57,7 @@
   var navLang = (navigator.language || "ru").slice(0, 2);
 
   var state = {
-    lang: LANGS.indexOf(urlLang) >= 0 ? urlLang : load("lang", LANGS.indexOf(navLang) >= 0 ? navLang : "ru"),
+    lang: LANGS.indexOf(urlLang) >= 0 ? urlLang : load("lang", navLang === "uz" ? "uz" : "ru"),
     table: urlTable ? String(urlTable).replace(/[^\w-]/g, "").slice(0, 6) : load("table", ""),
     cart: load("cart", {}),
     note: load("note", ""),
@@ -110,16 +110,19 @@
   // Премиум-значки (тонкие золотые линии) — показываются, пока у блюда нет фото
   var ICONS = {
     cloche: '<path d="M3 18.5h18M5 18.5a7 7 0 0 1 14 0M12 9.5V8M10.4 8h3.2"/>',
-    hot: '<path d="M3 11h18a9 9 0 0 1-18 0Z"/><path d="M6.5 11c1-2.8 3.2-4.3 5.5-4.3s4.5 1.5 5.5 4.3M9.5 20.5h5"/><circle cx="12" cy="4" r=".6"/>',
-    soups: '<path d="M3 11h18a9 9 0 0 1-18 0Z"/><path d="M9.5 20.5h5M9 2.8c-1 1.4 1 2.4 0 4M12.5 2.8c-1 1.4 1 2.4 0 4M16 2.8c-1 1.4 1 2.4 0 4"/>',
-    salads: '<path d="M3 11h18a9 9 0 0 1-18 0Z"/><path d="M9.5 20.5h5M7.5 11c0-3 2.2-5.3 5.3-5.3 0 3-2.2 5.3-5.3 5.3ZM13 11c.6-2 2.5-3.4 4.8-3.4-.4 1.8-1.8 3.2-3.6 3.4"/>',
-    grill: '<path d="M3.5 20.5 20.5 3.5"/><rect x="6.2" y="13.3" width="4.4" height="4.4" rx="1.4" transform="rotate(45 8.4 15.5)"/><rect x="9.8" y="9.8" width="4.4" height="4.4" rx="1.4" transform="rotate(45 12 12)"/><rect x="13.4" y="6.2" width="4.4" height="4.4" rx="1.4" transform="rotate(45 15.6 8.4)"/>',
-    bakery: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.2"/><path d="M12 10.6v.01M10.6 12h.01M13.4 12h.01M12 13.4v.01"/>',
-    desserts: '<rect x="4" y="11" width="16" height="9" rx="1.5"/><path d="M4 14.5c2 1.5 4 1.5 6 0s4-1.5 6 0 2.7 1.2 4 .4M12 11V7.5M12 5.6c.8-.6.8-1.5 0-2.3-.8.8-.8 1.7 0 2.3Z"/>',
-    drinks: '<path d="M5 9h11v3.5a5.5 5.5 0 0 1-11 0Z"/><path d="M16 10h1.3a2.5 2.5 0 0 1 0 5H15M3.5 20.5h14M8.5 2.8c-1 1.4 1 2.4 0 4M12 2.8c-1 1.4 1 2.4 0 4"/>',
+    meze: '<path d="M2.5 13.5h7a3.5 3.5 0 0 1-7 0ZM14.5 13.5h7a3.5 3.5 0 0 1-7 0ZM8.5 5.5h7a3.5 3.5 0 0 1-7 0ZM3 20.5h18"/>',
+    soup: '<path d="M3 11h18a9 9 0 0 1-18 0Z"/><path d="M9.5 20.5h5M9 2.8c-1 1.4 1 2.4 0 4M12.5 2.8c-1 1.4 1 2.4 0 4M16 2.8c-1 1.4 1 2.4 0 4"/>',
+    kebab: '<path d="M3.5 20.5 20.5 3.5"/><rect x="6.2" y="13.3" width="4.4" height="4.4" rx="1.4" transform="rotate(45 8.4 15.5)"/><rect x="9.8" y="9.8" width="4.4" height="4.4" rx="1.4" transform="rotate(45 12 12)"/><rect x="13.4" y="6.2" width="4.4" height="4.4" rx="1.4" transform="rotate(45 15.6 8.4)"/>',
+    pide: '<path d="M2 12c3-3.2 6.3-4.4 10-4.4S19 8.8 22 12c-3 3.2-6.3 4.4-10 4.4S5 15.2 2 12Z"/><path d="M6.5 12c1.8-1.5 3.6-2.1 5.5-2.1s3.7.6 5.5 2.1c-1.8 1.5-3.6 2.1-5.5 2.1s-3.7-.6-5.5-2.1Z"/><circle cx="12" cy="12" r=".9"/>',
+    bowl: '<path d="M3 11h18a9 9 0 0 1-18 0Z"/><path d="M6.5 11c1-2.8 3.2-4.3 5.5-4.3s4.5 1.5 5.5 4.3M9.5 20.5h5"/><circle cx="12" cy="4" r=".6"/>',
+    dessert: '<path d="M12 3.5 16 7.5 12 11.5 8 7.5ZM6.5 9 10.5 13 6.5 17 2.5 13ZM17.5 9 21.5 13 17.5 17 13.5 13ZM12 14.5 16 18.5 12 22.5 8 18.5Z"/><circle cx="12" cy="7.5" r=".7"/><circle cx="12" cy="18.5" r=".7"/>',
+    tea: '<path d="M9 3.5h6c0 3-1.7 4.3-1.7 6.6s1.9 3.3 1.9 6.1c0 2-1.4 3.2-3.2 3.2s-3.2-1.2-3.2-3.2c0-2.8 1.9-3.8 1.9-6.1S9 6.5 9 3.5Z"/><path d="M4.5 20.5c1.5 1 4.2 1.5 7.5 1.5s6-.5 7.5-1.5M9.6 7h4.8"/>',
+    drink: '<path d="M6.5 4h11l-1.4 15.2a1.8 1.8 0 0 1-1.8 1.6H9.7a1.8 1.8 0 0 1-1.8-1.6Z"/><path d="M7.2 10.5h9.6M14 4l2-2.5M10 14.5c1.2 1 2.8 1 4 0"/>',
   };
+  var catIcon = {};
+  M.categories.forEach(function (c) { catIcon[c.id] = c.icon || c.id; });
   function iconSvg(cat) {
-    return '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">' + (ICONS[cat] || ICONS.cloche) + "</svg>";
+    return '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">' + (ICONS[catIcon[cat]] || ICONS.cloche) + "</svg>";
   }
 
   // ---------- Рендер меню ----------

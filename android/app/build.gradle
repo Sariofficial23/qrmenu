@@ -1,0 +1,44 @@
+plugins {
+    id 'com.android.application'
+}
+
+def runNumber = (System.getenv('GITHUB_RUN_NUMBER') ?: '1') as int
+// Постоянный ключ подписи (необязательно): задаётся секретами репозитория,
+// см. .github/workflows/android.yml. Без него APK подписывается временным ключом.
+def keystorePath = System.getenv('ANDROID_KEYSTORE_PATH')
+
+android {
+    namespace 'uz.istanbul.menu'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'uz.istanbul.menu'
+        minSdk 21
+        targetSdk 34
+        versionCode runNumber
+        versionName "1.0.${runNumber}"
+    }
+
+    signingConfigs {
+        if (keystorePath) {
+            release {
+                storeFile file(keystorePath)
+                storePassword System.getenv('ANDROID_KEYSTORE_PASSWORD')
+                keyAlias System.getenv('ANDROID_KEY_ALIAS')
+                keyPassword System.getenv('ANDROID_KEYSTORE_PASSWORD')
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig keystorePath ? signingConfigs.release : signingConfigs.debug
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}

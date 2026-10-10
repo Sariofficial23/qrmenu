@@ -1,6 +1,7 @@
 // Офлайн-кэш. После изменения меню увеличьте номер версии, чтобы гости сразу увидели новое.
-var VERSION = "qrmenu-v2";
-var FILES = ["./", "index.html", "styles.css", "app.js", "menu.js", "manifest.webmanifest", "icons/icon.svg", "icons/icon-192.png"];
+var VERSION = "qrmenu-v4";
+var FILES = ["./", "index.html", "styles.css", "app.js", "menu.js", "manifest.webmanifest", "icons/icon.svg", "icons/icon-192.png",
+  "fonts/playfair-display-latin-700-normal.woff2", "fonts/playfair-display-latin-ext-700-normal.woff2", "fonts/playfair-display-cyrillic-700-normal.woff2"];
 
 self.addEventListener("install", function (e) {
   e.waitUntil(caches.open(VERSION).then(function (c) { return c.addAll(FILES); }).then(function () { return self.skipWaiting(); }));
