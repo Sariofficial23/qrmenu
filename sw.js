@@ -1,5 +1,5 @@
 // Офлайн-кэш. После изменения меню увеличьте номер версии, чтобы гости сразу увидели новое.
-var VERSION = "qrmenu-v6";
+var VERSION = "qrmenu-v7";
 var FILES = ["./", "index.html", "styles.css", "app.js", "menu.js", "manifest.webmanifest", "icons/icon.svg", "icons/icon-192.png",
   "fonts/playfair-display-latin-700-normal.woff2", "fonts/playfair-display-latin-ext-700-normal.woff2", "fonts/playfair-display-cyrillic-700-normal.woff2"];
 
@@ -9,7 +9,9 @@ self.addEventListener("install", function (e) {
 
 self.addEventListener("activate", function (e) {
   e.waitUntil(caches.keys().then(function (keys) {
-    return Promise.all(keys.filter(function (k) { return k !== VERSION; }).map(function (k) { return caches.delete(k); }));
+    // Удаляем только свои старые кэши: на этом домене живут и другие меню
+    return Promise.all(keys.filter(function (k) { return k.indexOf("qrmenu-") === 0 && k !== VERSION; })
+      .map(function (k) { return caches.delete(k); }));
   }).then(function () { return self.clients.claim(); }));
 });
 
