@@ -106,6 +106,22 @@
   }
   function vibrate() { if (navigator.vibrate) try { navigator.vibrate(10); } catch (e) { /* ignore */ } }
 
+
+  // Премиум-значки (тонкие золотые линии) — показываются, пока у блюда нет фото
+  var ICONS = {
+    cloche: '<path d="M3 18.5h18M5 18.5a7 7 0 0 1 14 0M12 9.5V8M10.4 8h3.2"/>',
+    hot: '<path d="M3 11h18a9 9 0 0 1-18 0Z"/><path d="M6.5 11c1-2.8 3.2-4.3 5.5-4.3s4.5 1.5 5.5 4.3M9.5 20.5h5"/><circle cx="12" cy="4" r=".6"/>',
+    soups: '<path d="M3 11h18a9 9 0 0 1-18 0Z"/><path d="M9.5 20.5h5M9 2.8c-1 1.4 1 2.4 0 4M12.5 2.8c-1 1.4 1 2.4 0 4M16 2.8c-1 1.4 1 2.4 0 4"/>',
+    salads: '<path d="M3 11h18a9 9 0 0 1-18 0Z"/><path d="M9.5 20.5h5M7.5 11c0-3 2.2-5.3 5.3-5.3 0 3-2.2 5.3-5.3 5.3ZM13 11c.6-2 2.5-3.4 4.8-3.4-.4 1.8-1.8 3.2-3.6 3.4"/>',
+    grill: '<path d="M3.5 20.5 20.5 3.5"/><rect x="6.2" y="13.3" width="4.4" height="4.4" rx="1.4" transform="rotate(45 8.4 15.5)"/><rect x="9.8" y="9.8" width="4.4" height="4.4" rx="1.4" transform="rotate(45 12 12)"/><rect x="13.4" y="6.2" width="4.4" height="4.4" rx="1.4" transform="rotate(45 15.6 8.4)"/>',
+    bakery: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.2"/><path d="M12 10.6v.01M10.6 12h.01M13.4 12h.01M12 13.4v.01"/>',
+    desserts: '<rect x="4" y="11" width="16" height="9" rx="1.5"/><path d="M4 14.5c2 1.5 4 1.5 6 0s4-1.5 6 0 2.7 1.2 4 .4M12 11V7.5M12 5.6c.8-.6.8-1.5 0-2.3-.8.8-.8 1.7 0 2.3Z"/>',
+    drinks: '<path d="M5 9h11v3.5a5.5 5.5 0 0 1-11 0Z"/><path d="M16 10h1.3a2.5 2.5 0 0 1 0 5H15M3.5 20.5h14M8.5 2.8c-1 1.4 1 2.4 0 4M12 2.8c-1 1.4 1 2.4 0 4"/>',
+  };
+  function iconSvg(cat) {
+    return '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">' + (ICONS[cat] || ICONS.cloche) + "</svg>";
+  }
+
   // ---------- Рендер меню ----------
   function controlsHtml(id) {
     var q = state.cart[id] || 0;
@@ -120,7 +136,7 @@
     M.categories.forEach(function (c) {
       var items = M.items.filter(function (it) { return it.cat === c.id && !it.hidden; });
       if (!items.length) return;
-      navHtml += '<button data-cat="' + c.id + '">' + (c.emoji ? c.emoji + " " : "") + esc(tr(c.name)) + "</button>";
+      navHtml += '<button data-cat="' + c.id + '">' + esc(tr(c.name)) + "</button>";
       html += '<section class="section" id="cat-' + c.id + '" data-section="' + c.id + '">' +
         '<h2 class="section__title">' + esc(tr(c.name)) + " <small>" + items.length + "</small></h2><div class=\"grid\">";
       items.forEach(function (it) {
@@ -129,8 +145,8 @@
         }).join("");
         var search = [it.name.ru, it.name.uz, it.name.en, tr(it.desc)].join(" ").toLowerCase();
         html += '<article class="dish" data-id="' + it.id + '" data-search="' + esc(search) + '">' +
-          '<div class="dish__pic">' + esc(it.emoji || "🍽️") +
-          (it.img ? '<img src="' + esc(it.img) + '" alt="" loading="lazy" decoding="async" onerror="this.remove()">' : "") +
+          '<div class="dish__pic' + (it.img ? " has-img" : "") + '">' + iconSvg(it.cat) +
+          (it.img ? '<img src="' + esc(it.img) + '" alt="" loading="lazy" decoding="async" onload="this.parentNode.classList.add(\'loaded\')" onerror="this.parentNode.classList.remove(\'has-img\');this.remove()">' : "") +
           "</div>" +
           '<div class="dish__body"><h3 class="dish__name">' + esc(tr(it.name)) + "</h3>" +
           (tr(it.desc) ? '<p class="dish__desc">' + esc(tr(it.desc)) + "</p>" : "") +
@@ -149,7 +165,9 @@
   function renderTexts() {
     document.documentElement.lang = state.lang;
     document.title = R.name + " — " + tr({ ru: "Меню", uz: "Menyu", en: "Menu" });
-    $("restName").textContent = R.name;
+    $("restName").innerHTML = R.logo
+      ? '<img class="hero__logo" src="' + esc(R.logo) + '" alt="' + esc(R.name) + '">'
+      : esc(R.name);
     $("restTagline").textContent = tr(R.tagline);
     $("search").placeholder = t("search");
     $("emptySearch").textContent = t("nothing");
@@ -219,7 +237,8 @@
     if (!ids.length) { closeSheet("cartSheet"); return; }
     $("cartList").innerHTML = ids.map(function (id) {
       var it = byId[id];
-      return '<div class="cart-row"><div class="cart-row__emoji">' + esc(it.emoji || "🍽️") + "</div>" +
+      return '<div class="cart-row"><div class="cart-row__pic">' +
+        (it.img ? '<img src="' + esc(it.img) + '" alt="">' : iconSvg(it.cat)) + "</div>" +
         '<div class="cart-row__info"><div class="cart-row__name">' + esc(tr(it.name)) + "</div>" +
         '<div class="cart-row__price">' + money(it.price * state.cart[id]) + "</div></div>" +
         '<div class="ctl" data-ctl="' + id + '">' + controlsHtml(id) + "</div></div>";

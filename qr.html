@@ -21,23 +21,46 @@
     .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
     .actions button.alt { background: transparent; color: var(--ink); border: 2px solid var(--ink); }
 
-    .sheet { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; max-width: 860px; margin: 0 auto; padding: 0 16px 40px; }
+    .sheet { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; max-width: 860px; margin: 0 auto; padding: 0 16px 40px; }
     .card {
-      background: #fff; border-radius: 18px; padding: 18px 16px 16px; text-align: center;
-      border: 2px solid var(--ink); break-inside: avoid; page-break-inside: avoid;
+      --gold: #e6b15e; --gold-2: #b9813a;
+      position: relative; aspect-ratio: 63 / 88;
+      display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+      padding: 9% 9% 7%; text-align: center; color: #f7eee4;
+      border-radius: 14px; overflow: hidden;
+      background:
+        radial-gradient(120% 70% at 50% 0%, rgba(230,177,94,.22), transparent 60%),
+        radial-gradient(90% 60% at 50% 110%, rgba(226,113,47,.18), transparent 60%),
+        #16110d;
+      break-inside: avoid; page-break-inside: avoid;
+      -webkit-print-color-adjust: exact; print-color-adjust: exact;
     }
-    .card__name { font: 700 22px Georgia, serif; }
-    .card__scan { font-size: 13px; color: var(--muted); margin: 4px 0 10px; }
-    .card svg { width: 100%; max-width: 190px; height: auto; display: block; margin: 0 auto; }
-    .card__table { margin-top: 10px; display: inline-block; padding: 6px 16px; border-radius: 999px; background: var(--ink); color: #fff; font-weight: 800; font-size: 18px; }
-    .card__url { margin-top: 8px; font-size: 10px; color: var(--muted); word-break: break-all; }
+    .card::before, .card::after { content: ""; position: absolute; pointer-events: none; }
+    .card::before { inset: 3.5%; border: 1px solid var(--gold); border-radius: 9px; opacity: .85; }
+    .card::after { inset: 5%; border: .5px solid var(--gold); border-radius: 7px; opacity: .35; }
+    .corner { position: absolute; width: 9%; height: auto; fill: none; stroke: var(--gold); stroke-width: 1.2; }
+    .corner.tl { top: 2.2%; left: 3%; } .corner.tr { top: 2.2%; right: 3%; transform: scaleX(-1); }
+    .corner.bl { bottom: 2.2%; left: 3%; transform: scaleY(-1); } .corner.br { bottom: 2.2%; right: 3%; transform: scale(-1); }
+    .card__logo { max-width: 42%; max-height: 13%; object-fit: contain; }
+    .card__name { font: 700 clamp(18px, 7.5cqw, 26px)/1.05 Georgia, "Times New Roman", serif; letter-spacing: .5px; color: var(--gold); }
+    .card__orn { display: flex; align-items: center; gap: 6px; width: 70%; color: var(--gold); font-size: 8px; }
+    .card__orn::before, .card__orn::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold)); }
+    .card__orn::after { background: linear-gradient(90deg, var(--gold), transparent); }
+    .card__qr { width: 66%; padding: 5%; background: #fbf6ef; border-radius: 10px; box-shadow: 0 0 0 2px var(--gold-2), 0 8px 24px rgba(0,0,0,.4); }
+    .card__qr svg { display: block; width: 100%; height: auto; }
+    .card__scan { font-size: 10.5px; line-height: 1.35; letter-spacing: .3px; color: #d8c6b0; }
+    .card__scan b { color: #f7eee4; font-weight: 700; }
+    .card__table { display: flex; flex-direction: column; align-items: center; line-height: 1; }
+    .card__table small { font-size: 8.5px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); opacity: .9; }
+    .card__table span { font: 700 34px Georgia, serif; color: var(--gold); margin-top: 2px; }
+    .card { container-type: inline-size; }
 
     @media print {
-      @page { size: A4; margin: 10mm; }
+      @page { size: A4; margin: 8mm; }
       body { background: #fff; }
       .panel { display: none; }
-      .sheet { grid-template-columns: repeat(3, 1fr); gap: 6mm; padding: 0; max-width: none; }
-      .card { border-width: 1.5px; }
+      .sheet { grid-template-columns: repeat(3, 63mm); justify-content: center; gap: 4mm; padding: 0; max-width: none; }
+      .card { width: 63mm; height: 88mm; aspect-ratio: auto; border-radius: 3mm; }
     }
   </style>
 </head>
@@ -74,15 +97,23 @@
 
       function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 
+      var CORNER = '<path d="M2 22V8a6 6 0 0 1 6-6h14M6 22V11a5 5 0 0 1 5-5h11"/><circle cx="2" cy="2" r="1.6"/>';
       function card(link, table) {
-        var qr = qrcode(0, "M");
+        var qr = qrcode(0, "H");
         qr.addData(link);
         qr.make();
-        return '<div class="card"><div class="card__name">' + esc(window.MENU.restaurant.name) + '</div>' +
-          '<div class="card__scan">Меню · Menyu · Menu</div>' +
-          qr.createSvgTag({ cellSize: 4, margin: 2, scalable: true }) +
-          (table ? '<div class="card__table">Стол ' + esc(table) + '</div>' : '') +
-          '<div class="card__url">' + esc(link.replace(/^https?:\/\//, "")) + '</div></div>';
+        var R = window.MENU.restaurant;
+        var corners = ["tl", "tr", "bl", "br"].map(function (c) {
+          return '<svg class="corner ' + c + '" viewBox="0 0 24 24">' + CORNER + '</svg>';
+        }).join("");
+        return '<div class="card">' + corners +
+          (R.logo ? '<img class="card__logo" src="' + esc(R.logo) + '" alt="">' : '<div class="card__name">' + esc(R.name) + '</div>') +
+          '<div class="card__orn">◆</div>' +
+          '<div class="card__qr">' + qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true }) + '</div>' +
+          '<div class="card__scan"><b>Меню и заказ</b> · <b>Menyu va buyurtma</b><br>Menu &amp; order — scan me</div>' +
+          (table ? '<div class="card__table"><small>Стол · Stol · Table</small><span>' + esc(table) + '</span></div>'
+                 : '<div class="card__table"><small>Добро пожаловать · Welcome</small></div>') +
+          '</div>';
       }
 
       function render() {

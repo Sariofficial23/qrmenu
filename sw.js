@@ -1,5 +1,5 @@
 // Офлайн-кэш. После изменения меню увеличьте номер версии, чтобы гости сразу увидели новое.
-var VERSION = "qrmenu-v1";
+var VERSION = "qrmenu-v2";
 var FILES = ["./", "index.html", "styles.css", "app.js", "menu.js", "manifest.webmanifest", "icons/icon.svg", "icons/icon-192.png"];
 
 self.addEventListener("install", function (e) {

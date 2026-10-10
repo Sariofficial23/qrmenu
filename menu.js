@@ -22,6 +22,8 @@
 window.MENU = {
   restaurant: {
     name: "Choyxona Demo",
+    // Логотип для QR-наклеек и шапки меню (необязательно), например "img/logo.png"
+    logo: "",
     tagline: {
       ru: "Узбекская и европейская кухня",
       uz: "O‘zbek va Yevropa taomlari",
