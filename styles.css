@@ -250,6 +250,8 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
 .stepper button:active { background: rgba(217,170,90,.2); }
 .stepper span { min-width: 22px; text-align: center; font-weight: 750; }
 
+.foot { text-align: center; padding: 0 16px 120px; margin-top: -90px; font-size: 12px; }
+.foot a { color: var(--muted); }
 .empty { text-align: center; color: var(--muted); padding: 30px 16px 140px; }
 
 /* ---------- Кнопка корзины ---------- */

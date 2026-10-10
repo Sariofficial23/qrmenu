@@ -1,5 +1,5 @@
 // Офлайн-кэш. После изменения меню увеличьте номер версии, чтобы гости сразу увидели новое.
-var VERSION = "qrmenu-v5";
+var VERSION = "qrmenu-v6";
 var FILES = ["./", "index.html", "styles.css", "app.js", "menu.js", "manifest.webmanifest", "icons/icon.svg", "icons/icon-192.png",
   "fonts/playfair-display-latin-700-normal.woff2", "fonts/playfair-display-latin-ext-700-normal.woff2", "fonts/playfair-display-cyrillic-700-normal.woff2"];
 
