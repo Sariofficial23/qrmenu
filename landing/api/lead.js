@@ -20,24 +20,30 @@ module.exports = async (req, res) => {
   const chatId = process.env.TELEGRAM_CHAT_ID || DEFAULT_CHAT_ID;
   if (!token || !chatId) return res.status(500).json({ ok: false, error: "not_configured" });
 
-  const tgUser = clean(b.telegram, 40).replace(/^@/, "");
   const lines = [
     "🆕 <b>Новая заявка с сайта</b>",
     "",
     `📦 <b>Услуга:</b> ${SERVICES[b.service] || "—"}`,
     `👤 <b>Имя:</b> ${esc(clean(b.name, 80)) || "—"}`,
     `📞 <b>Телефон:</b> ${esc(phone)}`,
-    `✈️ <b>Telegram:</b> ${tgUser ? "@" + esc(tgUser) : "—"}`,
     `🌐 <b>Til / Язык:</b> ${b.lang === "ru" ? "RU" : "UZ"}`,
   ];
-  const msg = clean(b.message, 1000);
-  if (msg) lines.push("", `💬 ${esc(msg)}`);
 
-  const r = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+  let r;
+  try {
+    r = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: "POST",
+    signal: AbortSignal.timeout(10000),
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ chat_id: chatId, text: lines.join("\n"), parse_mode: "HTML" }),
-  });
-  if (!r.ok) return res.status(502).json({ ok: false, error: "telegram" });
+    });
+  } catch (e) {
+    console.error("telegram fetch failed", e.message);
+    return res.status(504).json({ ok: false, error: "timeout" });
+  }
+  if (!r.ok) {
+    console.error("telegram", r.status, await r.text());
+    return res.status(502).json({ ok: false, error: "telegram" });
+  }
   return res.status(200).json({ ok: true });
 };

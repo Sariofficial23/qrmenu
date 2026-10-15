@@ -222,11 +222,15 @@
     btn.disabled = true;
     setNote("", "form.sending");
     try {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 15000);
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
+        signal: ctrl.signal,
       });
+      clearTimeout(timer);
       if (!res.ok) throw new Error(res.status);
       form.reset();
       setNote("ok", "form.ok");
