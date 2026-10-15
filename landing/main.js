@@ -66,6 +66,19 @@
     const bar = el("div", "bw__bar");
     bar.append(el("i"), el("i"), el("i"), el("span", "bw__url", (p.url || "").replace(/^https?:\/\//, "").replace(/\/$/, "")));
     const view = el("div", "bw__view");
+    const pv = p.preview && window.PREVIEWS && window.PREVIEWS[p.preview];
+    if (pv && !p.img) {
+      view.classList.add("ok", "bw__view--pv");
+      const stage = el("div", "pv-stage");
+      stage.innerHTML = pv;
+      view.appendChild(stage);
+      // холст 640px шириной ужимаем до ширины окна карточки
+      const fit = () => { const w = view.clientWidth; if (w) stage.style.transform = "scale(" + w / 640 + ")"; };
+      if (window.ResizeObserver) new ResizeObserver(fit).observe(view);
+      requestAnimationFrame(fit);
+      win.append(bar, view);
+      return win;
+    }
     const im = el("img");
     im.alt = name; im.loading = "lazy"; im.decoding = "async";
     let tries = 0;

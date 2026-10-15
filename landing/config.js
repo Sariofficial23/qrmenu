@@ -15,12 +15,12 @@ window.SITE = {
   ],
 
   // Наши работы. type: "bot" или "site".
-  // url — ссылка на проект (бот https://t.me/имя_бота или сайт), img — скриншот из папки assets/ (необязательно)
+  // url — ссылка на проект (бот https://t.me/имя_бота или сайт), img — скриншот из папки assets/ (необязательно), preview — мини-копия сайта из previews.js
   projects: [
-    { type: "site", url: "https://restoranpos.netlify.app/", img: "",
+    { type: "site", url: "https://restoranpos.netlify.app/", img: "", preview: "pos",
       title: { uz: "Restoran POS", ru: "Restoran POS" },
       desc:  { uz: "Restoranlar uchun kassa tizimi lendingi.", ru: "Лендинг кассовой системы для ресторанов." } },
-    { type: "site", url: "https://ihlostravel.netlify.app/", img: "",
+    { type: "site", url: "https://ihlostravel.netlify.app/", img: "", preview: "ihlos",
       title: { uz: "Ihlos Travel", ru: "Ihlos Travel" },
       desc:  { uz: "Turistik kompaniya uchun lending sahifa.", ru: "Лендинг для туристической компании." } },
     { type: "bot", url: "https://t.me/dubaikafebot", img: "",

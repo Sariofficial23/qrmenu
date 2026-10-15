@@ -327,3 +327,48 @@ a.work:hover .work__link svg{transform:translateX(3px)}
 .tgc__btns span{background:rgba(10,92,255,.08);color:var(--blue2);border-radius:6px;text-align:center;padding:3px;font-size:10px;font-weight:600}
 @media (max-width:640px){.work__cover{padding:12px}.tgc__m{font-size:10px}.tgc__body{padding:8px}}
 .bw__view.fail{display:grid;place-items:center;color:#c7c7cc;font-size:48px}
+
+/* Мини-копии сайтов (холст 640×800) */
+.bw__view--pv{overflow:hidden}
+.pv-stage{position:absolute;top:0;left:0;width:640px;height:900px;transform-origin:0 0}
+.pv{width:640px;height:900px;font-family:Inter,sans-serif;letter-spacing:-.01em}
+.pv-nav{display:flex;align-items:center;gap:16px;height:64px;padding:0 24px;background:#fff;border-bottom:1px solid rgba(0,0,0,.06)}
+.pv-logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:18px}
+.pv-logo b{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;color:#fff;font-size:15px}
+.pv-links{flex:1;font-size:13px;color:#555}
+.pv-btn{display:inline-flex;align-items:center;height:38px;padding:0 18px;border-radius:999px;font-weight:600;font-size:14px;color:#fff;white-space:nowrap}
+.pv-hero{padding:40px 36px}
+.pv-pill{display:inline-block;padding:7px 14px;border-radius:999px;font-size:13px;font-weight:600}
+.pv h5{font-size:50px;line-height:1.08;letter-spacing:-.035em;font-weight:800;margin:20px 0 16px}
+.pv h5 em{font-style:normal}
+.pv p{font-size:17px;line-height:1.55;margin:0 0 24px}
+.pv-cta{display:flex;gap:10px}
+.pv-cta .pv-btn{height:50px;padding:0 24px;font-size:15px}
+
+.pv-pos{background:linear-gradient(180deg,#fff 64px,#f2f8f8)}
+.pv-pos .pv-logo b,.pv-pos .pv-btn{background:#14b8a6}
+.pv-pos .pv-btn--o{background:#fff;color:#111;box-shadow:inset 0 0 0 1px #e3e7ea}
+.pv-pos .pv-pill{background:#dff5f2;color:#0f766e}
+.pv-pos h5{color:#0f172a}.pv-pos h5 em{color:#14b8a6}
+.pv-pos p{color:#334155}
+.pv-card{margin-top:30px;background:#fff;border-radius:18px;padding:22px;box-shadow:0 20px 50px -18px rgba(15,23,42,.25)}
+.pv-dots{display:flex;gap:6px;margin-bottom:12px}.pv-dots i{width:10px;height:10px;border-radius:50%;background:#ff5f57}
+.pv-dots i:nth-child(2){background:#febc2e}.pv-dots i:nth-child(3){background:#28c840}
+.pv-card small{display:block;font-size:13px;color:#64748b}
+.pv-card strong{display:block;font-size:44px;font-weight:800;color:#14b8a6;margin:6px 0 14px}
+.pv-bars{display:flex;align-items:flex-end;gap:10px;height:130px;margin-bottom:12px}
+.pv-bars i{flex:1;border-radius:6px 6px 0 0;background:linear-gradient(180deg,#14b8a6,#99e6dc)}
+.pv-c{text-align:center}
+
+.pv-ihlos{background:radial-gradient(60% 40% at 80% 30%,rgba(255,255,255,.08),transparent 70%),linear-gradient(160deg,#245c3d,#123b27 60%,#0c2a1c)}
+.pv-ihlos .pv-logo{color:#1f4d33;letter-spacing:.08em;font-size:15px}
+.pv-ihlos .pv-logo b{background:#1f4d33;border-radius:50%}
+.pv-ihlos .pv-btn{background:#c9a04b}
+.pv-ihlos .pv-btn--w{background:#fff;color:#123b27}
+.pv-ihlos .pv-hero{padding-top:70px}
+.pv-ihlos .pv-pill{color:#e6c477;box-shadow:inset 0 0 0 1px rgba(230,196,119,.5);font-size:11.5px;letter-spacing:.04em}
+.pv-ihlos h5{color:#fff;font-size:54px}.pv-ihlos h5 em{color:#d4a94f}
+.pv-ihlos p{color:rgba(255,255,255,.85)}
+.pv-stats{display:flex;gap:28px;margin-top:40px;padding-top:24px;border-top:1px solid rgba(255,255,255,.15)}
+.pv-stats b{display:block;color:#e0bd6b;font-size:16px}
+.pv-stats small{color:rgba(255,255,255,.65);font-size:13px}
