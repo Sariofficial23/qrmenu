@@ -1,5 +1,7 @@
 // Vercel Function: принимает заявку с сайта и отправляет её в Telegram.
-// Нужны переменные окружения в Vercel: TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID.
+// Нужна переменная окружения в Vercel: TELEGRAM_BOT_TOKEN (бот должен быть добавлен в группу заявок).
+// TELEGRAM_CHAT_ID можно переопределить, по умолчанию — группа заявок.
+const DEFAULT_CHAT_ID = "-5534456848";
 const SERVICES = { bot: "Telegram-бот", site: "Сайт / лендинг", auto: "Автоматизация", other: "Другое" };
 
 const clean = (v, max) => String(v ?? "").trim().slice(0, max);
@@ -14,7 +16,8 @@ module.exports = async (req, res) => {
   const phone = clean(b.phone, 25);
   if (phone.replace(/\D/g, "").length < 9) return res.status(400).json({ ok: false, error: "phone" });
 
-  const { TELEGRAM_BOT_TOKEN: token, TELEGRAM_CHAT_ID: chatId } = process.env;
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID || DEFAULT_CHAT_ID;
   if (!token || !chatId) return res.status(500).json({ ok: false, error: "not_configured" });
 
   const tgUser = clean(b.telegram, 40).replace(/^@/, "");
@@ -25,6 +28,7 @@ module.exports = async (req, res) => {
     `👤 <b>Имя:</b> ${esc(clean(b.name, 80)) || "—"}`,
     `📞 <b>Телефон:</b> ${esc(phone)}`,
     `✈️ <b>Telegram:</b> ${tgUser ? "@" + esc(tgUser) : "—"}`,
+    `🌐 <b>Til / Язык:</b> ${b.lang === "ru" ? "RU" : "UZ"}`,
   ];
   const msg = clean(b.message, 1000);
   if (msg) lines.push("", `💬 ${esc(msg)}`);

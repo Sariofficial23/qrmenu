@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="ru">
+<html lang="uz">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>AI Studio — Telegram-боты, сайты и автоматизация для бизнеса</title>
-<meta name="description" content="Создаём Telegram-ботов с AI, ботов доставки, лендинги и системы автоматизации для кафе и ресторанов. Под ключ — от идеи до запуска.">
+<title>AI Studio — Telegram-botlar, saytlar va biznesni avtomatlashtirish</title>
+<meta name="description" content="Sun'iy intellektli Telegram-botlar, yetkazib berish botlari, lendinglar hamda kafe va restoranlar uchun avtomatlashtirish tizimlari.">
 <meta name="theme-color" content="#f5f5f7">
-<meta property="og:title" content="Боты, сайты и автоматизация для вашего бизнеса">
-<meta property="og:description" content="Telegram-боты с AI, лендинги и системы автоматизации для кафе и ресторанов.">
+<meta property="og:title" content="Botlar, saytlar va avtomatlashtirish — siz uchun ishlaydi">
+<meta property="og:description" content="Telegram-botlar, lendinglar va restoranlar uchun avtomatlashtirish. Telegram-боты, сайты и автоматизация.">
 <meta property="og:type" content="website">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,10 +15,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <script src="config.js"></script>
+<script src="i18n.js"></script>
 </head>
 <body>
 
-<!-- SVG-иконки (премиум-стикеры) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
     <linearGradient id="g-blue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5ac8fa"/><stop offset="1" stop-color="#0a5cff"/></linearGradient>
@@ -43,161 +43,153 @@
 
 <header class="nav" id="nav">
   <div class="nav__in">
-    <a href="#top" class="logo"><span class="logo__mark"><svg><use href="#i-spark"/></svg></span><span data-brand>AI Studio</span></a>
-    <nav class="nav__links" aria-label="Разделы">
-      <a href="#services">Услуги</a>
-      <a href="#restaurants">Для ресторанов</a>
-      <a href="#work">Работы</a>
-      <a href="#process">Как работаем</a>
-      <a href="#faq">Вопросы</a>
+    <a href="#top" class="logo"><span class="logo__mark"><svg><use href="#i-spark"/></svg></span><span data-brand></span></a>
+    <nav class="nav__links" aria-label="Menu">
+      <a href="#services" data-t="nav.services"></a>
+      <a href="#restaurants" data-t="nav.rest"></a>
+      <a href="#work" data-t="nav.work"></a>
+      <a href="#process" data-t="nav.process"></a>
+      <a href="#faq" data-t="nav.faq"></a>
     </nav>
     <div class="nav__right">
+      <div class="lang" role="group" aria-label="Til / Язык">
+        <button type="button" data-lang="uz">UZ</button><button type="button" data-lang="ru">RU</button>
+      </div>
       <a class="icon-btn" data-ig-link href="#" target="_blank" rel="noopener" aria-label="Instagram"><svg><use href="#i-ig"/></svg></a>
-      <a class="btn btn--sm btn--dark" href="#lead">Оставить заявку</a>
+      <a class="btn btn--sm btn--dark" href="#lead" data-t="cta.lead"></a>
     </div>
   </div>
 </header>
 
 <main id="top">
 
-  <!-- ПЕРВЫЙ ЭКРАН: сразу понятно, чем занимаемся -->
+  <!-- ПЕРВЫЙ ЭКРАН -->
   <section class="hero">
     <div class="hero__glow" aria-hidden="true"></div>
     <div class="wrap hero__grid">
       <div class="hero__text">
-        <span class="pill reveal"><svg><use href="#i-spark"/></svg> AI-продукты для бизнеса</span>
-        <h1 class="reveal">Боты, сайты и автоматизация, <span class="grad">которые работают за&nbsp;вас.</span></h1>
-        <p class="lead reveal">Создаём Telegram-ботов с искусственным интеллектом, ботов доставки, продающие сайты и системы автоматизации для кафе и ресторанов. Под ключ — от идеи до запуска.</p>
+        <span class="pill reveal"><svg><use href="#i-spark"/></svg> <span data-t="hero.pill"></span></span>
+        <h1 class="reveal" data-t="hero.h1"></h1>
+        <p class="lead reveal" data-t="hero.lead"></p>
 
         <div class="chips reveal" role="list">
-          <a role="listitem" class="chip" href="#lead" data-pick="bot"><span class="sticker sticker--blue"><svg><use href="#i-bot"/></svg></span><span><b>Telegram-боты</b><small>AI, доставка, заявки</small></span></a>
-          <a role="listitem" class="chip" href="#lead" data-pick="site"><span class="sticker sticker--violet"><svg><use href="#i-web"/></svg></span><span><b>Сайты и лендинги</b><small>Под заявки и продажи</small></span></a>
-          <a role="listitem" class="chip" href="#lead" data-pick="auto"><span class="sticker sticker--orange"><svg><use href="#i-cafe"/></svg></span><span><b>Автоматизация</b><small>Для кафе и ресторанов</small></span></a>
+          <a role="listitem" class="chip" href="#lead" data-pick="bot"><span class="sticker sticker--blue"><svg><use href="#i-bot"/></svg></span><span><b data-t="chip.bot.t"></b><small data-t="chip.bot.s"></small></span></a>
+          <a role="listitem" class="chip" href="#lead" data-pick="site"><span class="sticker sticker--violet"><svg><use href="#i-web"/></svg></span><span><b data-t="chip.site.t"></b><small data-t="chip.site.s"></small></span></a>
+          <a role="listitem" class="chip" href="#lead" data-pick="auto"><span class="sticker sticker--orange"><svg><use href="#i-cafe"/></svg></span><span><b data-t="chip.auto.t"></b><small data-t="chip.auto.s"></small></span></a>
         </div>
 
         <div class="hero__cta reveal">
-          <a class="btn btn--primary" href="#lead">Обсудить проект <svg><use href="#i-arrow"/></svg></a>
-          <a class="btn btn--ghost" href="#work">Смотреть работы</a>
+          <a class="btn btn--primary" href="#lead"><span data-t="hero.cta1"></span> <svg><use href="#i-arrow"/></svg></a>
+          <a class="btn btn--ghost" href="#work" data-t="hero.cta2"></a>
         </div>
       </div>
 
-      <!-- Телефон с живой перепиской бота -->
       <div class="hero__visual reveal" aria-hidden="true">
         <div class="phone">
           <div class="phone__notch"></div>
           <div class="chat">
-            <div class="chat__head"><span class="chat__ava"><svg><use href="#i-bot"/></svg></span><div><b>Delivery Bot</b><small>бот · онлайн</small></div></div>
+            <div class="chat__head"><span class="chat__ava"><svg><use href="#i-bot"/></svg></span><div><b>Delivery Bot</b><small data-t="chat.status"></small></div></div>
             <div class="chat__body" id="chat"></div>
           </div>
         </div>
-        <div class="float float--a"><span class="sticker sticker--orange"><svg><use href="#i-bell"/></svg></span><div><b>Новый заказ #248</b><small>Плов, Лагман · 145 000 сум</small></div></div>
-        <div class="float float--b"><span class="sticker sticker--blue"><svg><use href="#i-chart"/></svg></span><div><b>Выручка сегодня</b><small class="up">+18% к вчера</small></div></div>
+        <div class="float float--a"><span class="sticker sticker--orange"><svg><use href="#i-bell"/></svg></span><div><b data-t="float.a.t"></b><small data-t="float.a.s"></small></div></div>
+        <div class="float float--b"><span class="sticker sticker--blue"><svg><use href="#i-chart"/></svg></span><div><b data-t="float.b.t"></b><small class="up" data-t="float.b.s"></small></div></div>
       </div>
     </div>
   </section>
 
-  <!-- Короткие факты -->
-  <section class="facts wrap">
-    <div class="fact reveal"><b>24/7</b><span>бот принимает заказы и заявки без выходных</span></div>
-    <div class="fact reveal"><b>AI</b><span>отвечает клиентам как живой менеджер</span></div>
-    <div class="fact reveal"><b>Под ключ</b><span>дизайн, разработка, запуск и поддержка</span></div>
-    <div class="fact reveal"><b>Telegram</b><span>заказы и уведомления приходят прямо в чат</span></div>
-  </section>
+  <!-- Цифры (из config.js) -->
+  <section class="facts wrap" id="stats"></section>
 
   <!-- УСЛУГИ -->
   <section class="section" id="services">
     <div class="wrap">
-      <p class="eyebrow reveal">Услуги</p>
-      <h2 class="reveal">Три направления. Один результат — <span class="muted">больше клиентов и меньше рутины.</span></h2>
+      <p class="eyebrow reveal" data-t="services.eye"></p>
+      <h2 class="reveal" data-t="services.h2"></h2>
 
       <div class="bento">
         <article class="card card--bot reveal">
           <span class="sticker sticker--lg sticker--blue"><svg><use href="#i-bot"/></svg></span>
-          <h3>Telegram-боты и AI-ассистенты</h3>
-          <p>Любой бот под вашу задачу: доставка, запись, приём заявок, интернет-магазин, поддержка клиентов. С AI, который понимает обычную речь.</p>
+          <h3 data-t="bot.h"></h3>
+          <p data-t="bot.p"></p>
           <ul class="ticks">
-            <li><svg><use href="#i-check"/></svg>Боты доставки с меню, корзиной и оплатой</li>
-            <li><svg><use href="#i-check"/></svg>Mini App — магазин прямо внутри Telegram</li>
-            <li><svg><use href="#i-check"/></svg>AI-менеджер отвечает клиентам 24/7</li>
-            <li><svg><use href="#i-check"/></svg>Админ-панель для заказов и рассылок</li>
+            <li><svg><use href="#i-check"/></svg><span data-t="bot.l1"></span></li>
+            <li><svg><use href="#i-check"/></svg><span data-t="bot.l2"></span></li>
+            <li><svg><use href="#i-check"/></svg><span data-t="bot.l3"></span></li>
+            <li><svg><use href="#i-check"/></svg><span data-t="bot.l4"></span></li>
           </ul>
-          <a class="btn btn--dark" href="#lead" data-pick="bot">Заказать бота <svg><use href="#i-arrow"/></svg></a>
+          <a class="btn btn--dark" href="#lead" data-pick="bot"><span data-t="bot.btn"></span> <svg><use href="#i-arrow"/></svg></a>
         </article>
 
         <article class="card card--site reveal">
           <span class="sticker sticker--lg sticker--violet"><svg><use href="#i-web"/></svg></span>
-          <h3>Сайты и лендинги</h3>
-          <p>Современные сайты, которые быстро открываются на телефоне и превращают посетителей в заявки.</p>
+          <h3 data-t="site.h"></h3>
+          <p data-t="site.p"></p>
           <ul class="ticks">
-            <li><svg><use href="#i-check"/></svg>Лендинги и сайты-визитки</li>
-            <li><svg><use href="#i-check"/></svg>Адаптив под телефон и компьютер</li>
-            <li><svg><use href="#i-check"/></svg>Заявки сразу в Telegram</li>
+            <li><svg><use href="#i-check"/></svg><span data-t="site.l1"></span></li>
+            <li><svg><use href="#i-check"/></svg><span data-t="site.l2"></span></li>
+            <li><svg><use href="#i-check"/></svg><span data-t="site.l3"></span></li>
           </ul>
-          <a class="btn btn--dark" href="#lead" data-pick="site">Заказать сайт <svg><use href="#i-arrow"/></svg></a>
+          <a class="btn btn--dark" href="#lead" data-pick="site"><span data-t="site.btn"></span> <svg><use href="#i-arrow"/></svg></a>
         </article>
 
         <article class="card card--auto reveal">
           <span class="sticker sticker--lg sticker--orange"><svg><use href="#i-cafe"/></svg></span>
-          <h3>Автоматизация кафе и ресторанов</h3>
-          <p>Электронное меню, заказы со столов, доставка и отчёты — всё в одной системе.</p>
+          <h3 data-t="auto.h"></h3>
+          <p data-t="auto.p"></p>
           <ul class="ticks">
-            <li><svg><use href="#i-check"/></svg>QR-меню и заказ со стола</li>
-            <li><svg><use href="#i-check"/></svg>Учёт заказов и выручки</li>
+            <li><svg><use href="#i-check"/></svg><span data-t="auto.l1"></span></li>
+            <li><svg><use href="#i-check"/></svg><span data-t="auto.l2"></span></li>
           </ul>
-          <a class="btn btn--dark" href="#lead" data-pick="auto">Заказать систему <svg><use href="#i-arrow"/></svg></a>
+          <a class="btn btn--dark" href="#lead" data-pick="auto"><span data-t="auto.btn"></span> <svg><use href="#i-arrow"/></svg></a>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- ДЛЯ РЕСТОРАНОВ (тёмная секция в стиле Apple) -->
+  <!-- ДЛЯ РЕСТОРАНОВ -->
   <section class="section dark" id="restaurants">
     <div class="wrap">
-      <p class="eyebrow reveal">Для кафе и ресторанов</p>
-      <h2 class="reveal">Ваш ресторан на автопилоте.</h2>
-      <p class="lead lead--dark reveal">Гость сканирует QR — видит меню с фото — делает заказ. Кухня и администратор сразу получают его в Telegram. Вы видите выручку в телефоне.</p>
+      <p class="eyebrow reveal" data-t="rest.eye"></p>
+      <h2 class="reveal" data-t="rest.h2"></h2>
+      <p class="lead lead--dark reveal" data-t="rest.lead"></p>
 
       <div class="feat">
-        <div class="feat__item reveal"><span class="sticker sticker--orange"><svg><use href="#i-qr"/></svg></span><h4>QR-меню</h4><p>Меню с фото на 3 языках. Цены меняете сами за минуту.</p></div>
-        <div class="feat__item reveal"><span class="sticker sticker--blue"><svg><use href="#i-truck"/></svg></span><h4>Бот доставки</h4><p>Заказ, адрес и оплата — без звонков и операторов.</p></div>
-        <div class="feat__item reveal"><span class="sticker sticker--violet"><svg><use href="#i-bell"/></svg></span><h4>Заказы в Telegram</h4><p>Уведомление о каждом заказе — на кухню и администратору.</p></div>
-        <div class="feat__item reveal"><span class="sticker sticker--orange"><svg><use href="#i-chart"/></svg></span><h4>Отчёты</h4><p>Выручка, популярные блюда и средний чек в одной панели.</p></div>
+        <div class="feat__item reveal"><span class="sticker sticker--orange"><svg><use href="#i-qr"/></svg></span><h4 data-t="f1.h"></h4><p data-t="f1.p"></p></div>
+        <div class="feat__item reveal"><span class="sticker sticker--blue"><svg><use href="#i-truck"/></svg></span><h4 data-t="f2.h"></h4><p data-t="f2.p"></p></div>
+        <div class="feat__item reveal"><span class="sticker sticker--violet"><svg><use href="#i-bell"/></svg></span><h4 data-t="f3.h"></h4><p data-t="f3.p"></p></div>
+        <div class="feat__item reveal"><span class="sticker sticker--orange"><svg><use href="#i-chart"/></svg></span><h4 data-t="f4.h"></h4><p data-t="f4.p"></p></div>
       </div>
 
       <div class="demo reveal">
         <div>
-          <b>Посмотрите живой пример</b>
-          <span>QR-меню ресторана «Istanbul», сделанное нами. Откройте с телефона.</span>
+          <b data-t="demo.t"></b>
+          <span data-t="demo.s"></span>
         </div>
-        <a class="btn btn--light" href="https://sariofficial23.github.io/qrmenu/" target="_blank" rel="noopener">Открыть демо <svg><use href="#i-arrow"/></svg></a>
+        <a class="btn btn--light" href="https://sariofficial23.github.io/qrmenu/" target="_blank" rel="noopener"><span data-t="demo.btn"></span> <svg><use href="#i-arrow"/></svg></a>
       </div>
     </div>
   </section>
 
-  <!-- РАБОТЫ -->
+  <!-- РАБОТЫ (из config.js) -->
   <section class="section" id="work">
     <div class="wrap">
-      <p class="eyebrow reveal">Наши работы</p>
-      <h2 class="reveal">Проекты, которые уже работают.</h2>
-      <div class="works">
-        <article class="work reveal"><div class="work__cover work__cover--a"><svg><use href="#i-truck"/></svg></div><span class="tag">Telegram-бот</span><h4>Бот доставки еды</h4><p>Меню, корзина, адрес и заказы в админ-панели.</p></article>
-        <article class="work reveal"><div class="work__cover work__cover--b"><svg><use href="#i-cafe"/></svg></div><span class="tag">Mini App + админка</span><h4>Бот для кафе</h4><p>Заказ внутри Telegram и панель для персонала.</p></article>
-        <article class="work reveal"><div class="work__cover work__cover--c"><svg><use href="#i-qr"/></svg></div><span class="tag">Автоматизация</span><h4>QR-меню «Istanbul»</h4><p>Электронное меню на 3 языках, заказ со стола.</p></article>
-        <article class="work reveal"><div class="work__cover work__cover--d"><svg><use href="#i-web"/></svg></div><span class="tag">Сайт</span><h4>Интернет-магазин</h4><p>Каталог, корзина и заявки в Telegram.</p></article>
-      </div>
+      <p class="eyebrow reveal" data-t="work.eye"></p>
+      <h2 class="reveal" data-t="work.h2"></h2>
+      <div class="works" id="works"></div>
     </div>
   </section>
 
   <!-- ПРОЦЕСС -->
   <section class="section section--soft" id="process">
     <div class="wrap">
-      <p class="eyebrow reveal">Как работаем</p>
-      <h2 class="reveal">От заявки до запуска — четыре шага.</h2>
+      <p class="eyebrow reveal" data-t="proc.eye"></p>
+      <h2 class="reveal" data-t="proc.h2"></h2>
       <ol class="steps">
-        <li class="reveal"><span>01</span><h4>Заявка</h4><p>Оставляете заявку — связываемся в течение дня.</p></li>
-        <li class="reveal"><span>02</span><h4>Обсуждение</h4><p>Разбираем задачу, предлагаем решение, срок и цену.</p></li>
-        <li class="reveal"><span>03</span><h4>Разработка</h4><p>Делаем дизайн и функционал, показываем промежуточный результат.</p></li>
-        <li class="reveal"><span>04</span><h4>Запуск</h4><p>Запускаем, обучаем персонал и остаёмся на поддержке.</p></li>
+        <li class="reveal"><span>01</span><h4 data-t="s1.h"></h4><p data-t="s1.p"></p></li>
+        <li class="reveal"><span>02</span><h4 data-t="s2.h"></h4><p data-t="s2.p"></p></li>
+        <li class="reveal"><span>03</span><h4 data-t="s3.h"></h4><p data-t="s3.p"></p></li>
+        <li class="reveal"><span>04</span><h4 data-t="s4.h"></h4><p data-t="s4.p"></p></li>
       </ol>
     </div>
   </section>
@@ -208,11 +200,11 @@
       <a class="insta reveal" data-ig-link href="#" target="_blank" rel="noopener">
         <span class="insta__icon"><svg><use href="#i-ig"/></svg></span>
         <span class="insta__text">
-          <small>Мы в Instagram</small>
-          <b data-ig-handle>@your_instagram</b>
-          <span>Кейсы, процесс работы и новые проекты — каждую неделю.</span>
+          <small data-t="ig.small"></small>
+          <b data-ig-handle></b>
+          <span data-t="ig.p"></span>
         </span>
-        <span class="btn btn--light">Подписаться <svg><use href="#i-arrow"/></svg></span>
+        <span class="btn btn--light"><span data-t="ig.btn"></span> <svg><use href="#i-arrow"/></svg></span>
       </a>
     </div>
   </section>
@@ -220,14 +212,14 @@
   <!-- FAQ -->
   <section class="section section--soft" id="faq">
     <div class="wrap wrap--narrow">
-      <p class="eyebrow reveal">Вопросы</p>
-      <h2 class="reveal">Часто спрашивают.</h2>
+      <p class="eyebrow reveal" data-t="faq.eye"></p>
+      <h2 class="reveal" data-t="faq.h2"></h2>
       <div class="faq">
-        <details class="reveal"><summary>Сколько стоит бот или сайт?</summary><p>Зависит от задачи. После короткого обсуждения называем точную цену и срок — без скрытых доплат.</p></details>
-        <details class="reveal"><summary>Сколько времени занимает разработка?</summary><p>Простой лендинг или бот — от нескольких дней. Большие системы с админ-панелью — несколько недель. Срок фиксируем заранее.</p></details>
-        <details class="reveal"><summary>Можно ли потом вносить изменения?</summary><p>Да. Цены и меню вы меняете сами, а по остальным изменениям мы на поддержке.</p></details>
-        <details class="reveal"><summary>Работаете ли вы с маленькими кафе?</summary><p>Да. Есть решения и для небольших заведений, и для сетей ресторанов.</p></details>
-        <details class="reveal"><summary>Что нужно от меня для старта?</summary><p>Только описание задачи. Остальное — дизайн, тексты, настройку — берём на себя.</p></details>
+        <details class="reveal"><summary data-t="q1"></summary><p data-t="a1"></p></details>
+        <details class="reveal"><summary data-t="q2"></summary><p data-t="a2"></p></details>
+        <details class="reveal"><summary data-t="q3"></summary><p data-t="a3"></p></details>
+        <details class="reveal"><summary data-t="q4"></summary><p data-t="a4"></p></details>
+        <details class="reveal"><summary data-t="q5"></summary><p data-t="a5"></p></details>
       </div>
     </div>
   </section>
@@ -237,33 +229,33 @@
     <div class="wrap">
       <div class="lead-card reveal">
         <div class="lead-card__info">
-          <p class="eyebrow">Заявка</p>
-          <h2>Расскажите о задаче.</h2>
-          <p>Ответим в течение дня, предложим решение и назовём цену. Это бесплатно и ни к чему не обязывает.</p>
+          <p class="eyebrow" data-t="lead.eye"></p>
+          <h2 data-t="lead.h2"></h2>
+          <p data-t="lead.p"></p>
           <div class="contacts">
-            <a data-tg-link href="#" target="_blank" rel="noopener"><span class="sticker sticker--blue"><svg><use href="#i-tg"/></svg></span><span data-tg-handle>@your_telegram</span></a>
-            <a data-phone-link href="#"><span class="sticker sticker--violet"><svg><use href="#i-phone"/></svg></span><span data-phone>+998 90 000 00 00</span></a>
-            <a data-ig-link href="#" target="_blank" rel="noopener"><span class="sticker sticker--ig"><svg><use href="#i-ig"/></svg></span><span data-ig-handle>@your_instagram</span></a>
+            <a data-tg-link href="#" target="_blank" rel="noopener"><span class="sticker sticker--blue"><svg><use href="#i-tg"/></svg></span><span data-tg-handle></span></a>
+            <a data-phone-link href="#"><span class="sticker sticker--violet"><svg><use href="#i-phone"/></svg></span><span data-phone></span></a>
+            <a data-ig-link href="#" target="_blank" rel="noopener"><span class="sticker sticker--ig"><svg><use href="#i-ig"/></svg></span><span data-ig-handle></span></a>
           </div>
         </div>
 
         <form class="form" id="form" novalidate>
           <fieldset class="seg">
-            <legend>Что хотите заказать?</legend>
-            <label><input type="radio" name="service" value="bot" checked><span><svg><use href="#i-bot"/></svg>Telegram-бот</span></label>
-            <label><input type="radio" name="service" value="site"><span><svg><use href="#i-web"/></svg>Сайт / лендинг</span></label>
-            <label><input type="radio" name="service" value="auto"><span><svg><use href="#i-cafe"/></svg>Автоматизация</span></label>
-            <label><input type="radio" name="service" value="other"><span><svg><use href="#i-spark"/></svg>Другое</span></label>
+            <legend data-t="form.legend"></legend>
+            <label><input type="radio" name="service" value="bot" checked><span><svg><use href="#i-bot"/></svg><i data-t="opt.bot"></i></span></label>
+            <label><input type="radio" name="service" value="site"><span><svg><use href="#i-web"/></svg><i data-t="opt.site"></i></span></label>
+            <label><input type="radio" name="service" value="auto"><span><svg><use href="#i-cafe"/></svg><i data-t="opt.auto"></i></span></label>
+            <label><input type="radio" name="service" value="other"><span><svg><use href="#i-spark"/></svg><i data-t="opt.other"></i></span></label>
           </fieldset>
 
-          <label class="field"><span>Имя</span><input name="name" autocomplete="name" placeholder="Как к вам обращаться" maxlength="80"></label>
-          <label class="field"><span>Телефон *</span><input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+998 __ ___ __ __" required maxlength="25"></label>
-          <label class="field"><span>Telegram</span><input name="telegram" autocomplete="off" placeholder="@username — если есть" maxlength="40"></label>
-          <label class="field"><span>Коротко о задаче</span><textarea name="message" rows="3" placeholder="Например: нужен бот доставки для кафе" maxlength="1000"></textarea></label>
+          <label class="field"><span data-t="f.name"></span><input name="name" autocomplete="name" data-tp="f.name.ph" maxlength="80"></label>
+          <label class="field"><span data-t="f.phone"></span><input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+998 __ ___ __ __" required maxlength="25"></label>
+          <label class="field"><span data-t="f.tg"></span><input name="telegram" autocomplete="off" data-tp="f.tg.ph" maxlength="40"></label>
+          <label class="field"><span data-t="f.msg"></span><textarea name="message" rows="3" data-tp="f.msg.ph" maxlength="1000"></textarea></label>
           <input class="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-          <button class="btn btn--primary btn--block" type="submit">Отправить заявку <svg><use href="#i-arrow"/></svg></button>
-          <p class="form__note" id="formNote" role="status" aria-live="polite">Нажимая кнопку, вы соглашаетесь на обработку контактных данных.</p>
+          <button class="btn btn--primary btn--block" type="submit"><span data-t="form.submit"></span> <svg><use href="#i-arrow"/></svg></button>
+          <p class="form__note" id="formNote" role="status" aria-live="polite" data-t="form.note"></p>
         </form>
       </div>
     </div>
@@ -272,20 +264,19 @@
 
 <footer class="footer">
   <div class="wrap footer__in">
-    <a href="#top" class="logo"><span class="logo__mark"><svg><use href="#i-spark"/></svg></span><span data-brand>AI Studio</span></a>
-    <p>Telegram-боты · Сайты · Автоматизация ресторанов · <span data-city>Ташкент</span></p>
+    <a href="#top" class="logo"><span class="logo__mark"><svg><use href="#i-spark"/></svg></span><span data-brand></span></a>
+    <p><span data-t="footer.tag"></span> · <span data-city></span></p>
     <div class="footer__soc">
       <a class="icon-btn" data-ig-link href="#" target="_blank" rel="noopener" aria-label="Instagram"><svg><use href="#i-ig"/></svg></a>
       <a class="icon-btn" data-tg-link href="#" target="_blank" rel="noopener" aria-label="Telegram"><svg><use href="#i-tg"/></svg></a>
     </div>
-    <small>© <span id="year"></span> <span data-brand>AI Studio</span></small>
+    <small>© <span id="year"></span> <span data-brand></span></small>
   </div>
 </footer>
 
-<!-- Нижняя кнопка на телефоне -->
 <div class="mbar" id="mbar">
   <a class="icon-btn icon-btn--light" data-ig-link href="#" target="_blank" rel="noopener" aria-label="Instagram"><svg><use href="#i-ig"/></svg></a>
-  <a class="btn btn--primary btn--block" href="#lead">Оставить заявку</a>
+  <a class="btn btn--primary btn--block" href="#lead" data-t="cta.lead"></a>
 </div>
 
 <script src="main.js"></script>

@@ -1,7 +1,14 @@
 (function () {
   const S = window.SITE || {};
+  const T = window.I18N;
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+
+  // Язык: узбекский по умолчанию, выбор запоминается
+  let lang = "uz";
+  try { const saved = localStorage.getItem("lang"); if (saved === "ru" || saved === "uz") lang = saved; } catch (e) {}
+  const t = (k) => T[lang][k] ?? T.uz[k] ?? "";
 
   // Контакты из config.js
   const ig = "https://instagram.com/" + S.instagram;
@@ -13,9 +20,63 @@
   $$("[data-tg-handle]").forEach((e) => (e.textContent = "@" + S.telegram));
   $$("[data-phone]").forEach((e) => (e.textContent = S.phone));
   $$("[data-phone-link]").forEach((e) => (e.href = "tel:" + String(S.phone).replace(/[^\d+]/g, "")));
-  $$("[data-city]").forEach((e) => (e.textContent = S.city));
   $("#year").textContent = new Date().getFullYear();
-  if (S.brand) document.title = document.title.replace("AI Studio", S.brand);
+
+  // Цифры
+  function renderStats() {
+    const box = $("#stats");
+    box.innerHTML = "";
+    (S.stats || []).forEach((s) => {
+      const f = el("div", "fact reveal in");
+      f.append(el("b", "", s.n), el("span", "", s[lang] || s.uz));
+      box.appendChild(f);
+    });
+  }
+
+  // Работы
+  const ICON = { bot: "i-truck", site: "i-web" };
+  const COVER = { site: ["d", "c"], bot: ["a", "b"] };
+  function renderWorks() {
+    const box = $("#works");
+    box.innerHTML = "";
+    const seen = {};
+    (S.projects || []).forEach((p) => {
+      const n = (seen[p.type] = (seen[p.type] || 0) + 1) - 1;
+      const set = COVER[p.type] || COVER.bot;
+      const w = el(p.url ? "a" : "article", "work reveal in");
+      if (p.url) { w.href = p.url; w.target = "_blank"; w.rel = "noopener"; }
+      const cover = el("div", "work__cover work__cover--" + set[n % set.length]);
+      if (p.img) {
+        const im = el("img"); im.src = p.img; im.alt = p.title[lang] || p.title.uz; im.loading = "lazy";
+        cover.appendChild(im);
+      } else {
+        cover.innerHTML = `<svg><use href="#${ICON[p.type] || "i-spark"}"/></svg>`;
+      }
+      w.append(cover, el("span", "tag", t("work.tag." + p.type)), el("h4", "", p.title[lang] || p.title.uz), el("p", "", p.desc[lang] || p.desc.uz));
+      if (p.url) {
+        const l = el("span", "work__link", t("work.open") + " ");
+        l.insertAdjacentHTML("beforeend", '<svg><use href="#i-arrow"/></svg>');
+        w.appendChild(l);
+      }
+      box.appendChild(w);
+    });
+  }
+
+  function applyLang(next) {
+    lang = next;
+    try { localStorage.setItem("lang", lang); } catch (e) {}
+    document.documentElement.lang = lang;
+    document.title = t("meta.title").replace("{brand}", S.brand);
+    $('meta[name="description"]').content = t("meta.desc");
+    $$("[data-t]").forEach((e) => (e.innerHTML = t(e.dataset.t)));
+    $$("[data-tp]").forEach((e) => (e.placeholder = t(e.dataset.tp)));
+    $$("[data-city]").forEach((e) => (e.textContent = (S.city && (S.city[lang] || S.city.uz)) || ""));
+    $$("[data-lang]").forEach((b) => { b.classList.toggle("on", b.dataset.lang === lang); b.setAttribute("aria-pressed", b.dataset.lang === lang); });
+    renderStats();
+    renderWorks();
+    restartChat();
+  }
+  $$("[data-lang]").forEach((b) => b.addEventListener("click", () => applyLang(b.dataset.lang)));
 
   // Шапка и нижняя панель при прокрутке
   const nav = $("#nav"), mbar = $("#mbar"), leadSec = $("#lead");
@@ -26,16 +87,6 @@
     mbar.classList.toggle("show", y > 500 && r.top > window.innerHeight * 0.6);
   };
   window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
-
-  // Плавное появление блоков
-  const io = new IntersectionObserver((es) => es.forEach((e) => {
-    if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
-  }), { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
-  $$(".reveal").forEach((el, i) => {
-    el.style.transitionDelay = (el.closest(".hero") ? i * 70 : 0) + "ms";
-    io.observe(el);
-  });
 
   // Кнопки «Заказать …» выбирают услугу в форме
   $$("[data-pick]").forEach((a) => a.addEventListener("click", () => {
@@ -45,38 +96,31 @@
 
   // Живая переписка с ботом в телефоне
   const chat = $("#chat");
-  const script = [
-    ["bot", "Здравствуйте! 👋 Я бот доставки. Что закажем сегодня?", ["🍽 Меню", "🛒 Корзина"]],
-    ["me", "Плов и лагман на двоих"],
-    ["bot", "Отлично! Плов ×2, Лагман ×2 — 145 000 сум. Куда доставить?"],
-    ["me", "Чиланзар, 9 квартал"],
-    ["bot", "Заказ #248 принят ✅ Курьер будет через 35 минут."],
-  ];
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let run = 0;
   function bubble([who, text, btns]) {
-    const m = document.createElement("div");
-    m.className = "msg msg--" + who;
-    m.textContent = text;
+    const m = el("div", "msg msg--" + who, text);
     if (btns) {
-      const b = document.createElement("div");
-      b.className = "msg__btns";
-      btns.forEach((t) => { const s = document.createElement("span"); s.textContent = t; b.appendChild(s); });
+      const b = el("div", "msg__btns");
+      btns.forEach((x) => b.appendChild(el("span", "", x)));
       m.appendChild(b);
     }
     return m;
   }
-  async function play() {
+  async function restartChat() {
+    const id = ++run;
     const wait = (ms) => new Promise((r) => setTimeout(r, ms));
-    for (;;) {
+    while (id === run) {
       chat.innerHTML = "";
-      for (const line of script) {
+      for (const line of t("chat")) {
+        if (id !== run) return;
         if (line[0] === "bot" && !reduce) {
-          const t = document.createElement("div");
-          t.className = "msg msg--bot typing";
-          t.innerHTML = "<i></i><i></i><i></i>";
-          chat.appendChild(t);
+          const ty = el("div", "msg msg--bot typing");
+          ty.innerHTML = "<i></i><i></i><i></i>";
+          chat.appendChild(ty);
           await wait(900);
-          t.remove();
+          ty.remove();
+          if (id !== run) return;
         }
         chat.appendChild(bubble(line));
         while (chat.children.length > 6) chat.firstChild.remove();
@@ -86,28 +130,38 @@
       await wait(3500);
     }
   }
-  play();
+
+  applyLang(lang);
+  onScroll();
+
+  // Плавное появление блоков
+  const io = new IntersectionObserver((es) => es.forEach((e) => {
+    if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+  }), { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+  $$(".reveal:not(.in)").forEach((r, i) => {
+    r.style.transitionDelay = (r.closest(".hero") ? i * 70 : 0) + "ms";
+    io.observe(r);
+  });
 
   // Форма заявки
   const form = $("#form"), note = $("#formNote");
   const phoneField = form.phone.closest(".field");
   form.phone.addEventListener("input", () => phoneField.classList.remove("is-bad"));
+  const setNote = (cls, key) => { note.className = "form__note " + cls; note.removeAttribute("data-t"); note.textContent = t(key); };
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const data = Object.fromEntries(new FormData(form));
-    const digits = (data.phone || "").replace(/\D/g, "");
-    if (digits.length < 9) {
+    data.lang = lang;
+    if ((data.phone || "").replace(/\D/g, "").length < 9) {
       phoneField.classList.add("is-bad");
-      note.className = "form__note err";
-      note.textContent = "Укажите номер телефона, чтобы мы могли связаться.";
+      setNote("err", "form.badphone");
       form.phone.focus();
       return;
     }
     const btn = form.querySelector("button");
     btn.disabled = true;
-    note.className = "form__note";
-    note.textContent = "Отправляем…";
+    setNote("", "form.sending");
     try {
       const res = await fetch("/api/lead", {
         method: "POST",
@@ -116,15 +170,11 @@
       });
       if (!res.ok) throw new Error(res.status);
       form.reset();
-      note.className = "form__note ok";
-      note.textContent = "Спасибо! Заявка отправлена — скоро свяжемся с вами.";
+      setNote("ok", "form.ok");
     } catch (err) {
-      note.className = "form__note err";
-      note.innerHTML = "";
-      note.append("Не удалось отправить. Напишите нам в Telegram: ");
-      const a = document.createElement("a");
-      a.href = tg; a.target = "_blank"; a.rel = "noopener"; a.textContent = "@" + S.telegram;
-      a.style.textDecoration = "underline";
+      setNote("err", "form.fail");
+      const a = el("a", "", "@" + S.telegram);
+      a.href = tg; a.target = "_blank"; a.rel = "noopener"; a.style.textDecoration = "underline";
       note.append(a);
     } finally {
       btn.disabled = false;
