@@ -2,8 +2,8 @@
 window.SITE = {
   brand: "AI Hizmatlar",               // название компании
   instagram: "sardor.ai.hizmatlar",        // ник Instagram без @
-  telegram: "your_telegram",          // ник Telegram для связи без @
-  phone: "+998 90 000 00 00",         // телефон для звонков
+  telegram: "Sardor199821",           // ник Telegram для связи без @
+  phone: "+998 99 362 49 04",         // телефон для звонков
   city: { uz: "Toshkent", ru: "Ташкент" },
 
   // Цифры на сайте (пока примерные — замените на свои)
