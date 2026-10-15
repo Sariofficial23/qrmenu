@@ -14,7 +14,8 @@
 .camel.left .camel__inner{transform:scaleX(-1)}
 .camel svg{display:block;width:100%;height:auto;overflow:visible}
 
-/* Переключатель вариантов паломника на странице-примере */
-.rider-pick{position:fixed;left:50%;top:86px;transform:translateX(-50%);z-index:70;display:flex;align-items:center;gap:6px;padding:6px 6px 6px 14px;border-radius:999px;background:#fff;box-shadow:0 12px 40px -10px rgba(0,0,0,.35);font:600 13px Montserrat,sans-serif;color:#555}
-.rider-pick button{width:38px;height:38px;border-radius:50%;border:0;cursor:pointer;font:700 14px Montserrat,sans-serif;background:#f3e6cc;color:#5a3a1a}
-.rider-pick button.on{background:linear-gradient(135deg,#f4d58b,#b8822a);color:#2a1c06;box-shadow:0 0 0 3px #fff,0 0 0 5px #2a1c06}
+@media (max-width:640px){
+  .dunes{height:20vh}
+  .camel{bottom:calc(20vh * .22);width:46vw}
+  .sun{bottom:15vh;width:26vw}
+}

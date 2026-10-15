@@ -71,9 +71,7 @@
       <path fill="#fbfaf6" d="M-1 -98 C-1 -108 9 -113 19 -112 C28 -111 32 -105 32 -99 C22 -102 10 -102 -1 -98 Z"/>
       <path fill="none" stroke="#ddd6ca" stroke-width="1.2" d="M1 -101 C10 -104 22 -104 31 -101"/>`,
   };
-  let RIDER = "a";
-  try { const m = location.search.match(/rider=([abc])/); RIDER = m ? m[1] : (localStorage.getItem("umra-rider") || "a"); } catch (e) {}
-  if (!RIDERS[RIDER]) RIDER = "a";
+  const RIDER = "b"; // выбранный вариант
 
   const CAMEL = `
 <svg viewBox="0 0 430 335" aria-hidden="true">
@@ -145,15 +143,6 @@
   dunes.innerHTML = LAND + `<div class="camel" id="camel"><div class="camel__inner">${CAMEL}</div></div>`;
   document.body.prepend(dunes);
   document.body.prepend(sun);
-
-  // Переключатель вариантов паломника (только на странице-примере)
-  const pick = document.getElementById("riderPick");
-  if (pick) {
-    pick.querySelectorAll("[data-rider]").forEach((b) => {
-      b.classList.toggle("on", b.dataset.rider === RIDER);
-      b.addEventListener("click", () => { try { localStorage.setItem("umra-rider", b.dataset.rider); } catch (e) {} const u = new URL(location.href); u.searchParams.set("rider", b.dataset.rider); location.replace(u); });
-    });
-  }
 
   const camel = dunes.querySelector("#camel");
   const $ = (id) => camel.querySelector("#" + id);
