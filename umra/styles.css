@@ -1,6 +1,5 @@
-/* Цветовые темы: A — «Oltin tong» (сливки и золото), B — «Zumrad» (изумруд), C — «Osmon» (небо).
-   Тема выбирается атрибутом <html data-theme="a|b|c">. */
-:root,[data-theme="a"]{
+/* Цвета сайта: тема «Oltin tong» — сливки и золото */
+:root{
   --bg:#fffaf1; --bg2:#fbf2e1; --card:#ffffff; --line:rgba(150,110,40,.16);
   --ink:#2a2116; --ink2:#6f6250; --eyebrow:#a8781f;
   --btn:linear-gradient(135deg,#f4d58b 0%,#dcab4c 50%,#b8822a 100%); --btn-ink:#2a1c06; --btn-shadow:rgba(200,145,45,.45);
@@ -10,28 +9,6 @@
   --hero:radial-gradient(60% 70% at 85% 30%,#ffe3b0 0%,transparent 60%),radial-gradient(50% 60% at 0% 100%,#ffeccf 0%,transparent 60%),linear-gradient(180deg,#fff6e6,#fffaf1);
   --feature:linear-gradient(160deg,#fff4dd,#ffffff); --feature-line:rgba(200,145,45,.55);
   --nav:rgba(255,250,241,.85);
-}
-[data-theme="b"]{
-  --bg:#f6fbf8; --bg2:#eaf5ef; --card:#ffffff; --line:rgba(15,110,80,.14);
-  --ink:#10261d; --ink2:#526b61; --eyebrow:#0f7a5a;
-  --btn:linear-gradient(135deg,#1fa77c 0%,#0f7a5a 100%); --btn-ink:#ffffff; --btn-shadow:rgba(15,122,90,.4);
-  --em:linear-gradient(120deg,#c8962f,#a06c14);
-  --icon:#0f7a5a; --icon-bg:#e2f3eb;
-  --medal:radial-gradient(circle at 50% 40%,#16805f,#073d2c 78%);
-  --hero:radial-gradient(55% 65% at 85% 30%,#cdeedd 0%,transparent 60%),radial-gradient(45% 55% at 5% 95%,#fbe9c4 0%,transparent 60%),linear-gradient(180deg,#eef9f3,#f6fbf8);
-  --feature:linear-gradient(160deg,#e3f5ec,#ffffff); --feature-line:rgba(15,122,90,.5);
-  --nav:rgba(246,251,248,.86);
-}
-[data-theme="c"]{
-  --bg:#f6f9ff; --bg2:#eaf1fd; --card:#ffffff; --line:rgba(30,80,170,.13);
-  --ink:#0f1f3a; --ink2:#53627c; --eyebrow:#2563d9;
-  --btn:linear-gradient(135deg,#3d8bff 0%,#1d4fc4 100%); --btn-ink:#ffffff; --btn-shadow:rgba(37,99,217,.4);
-  --em:linear-gradient(120deg,#2f7bf5,#14a3a8);
-  --icon:#2563d9; --icon-bg:#e3edff;
-  --medal:radial-gradient(circle at 50% 40%,#2a5fb8,#0d2a5c 78%);
-  --hero:radial-gradient(55% 65% at 85% 25%,#d4e6ff 0%,transparent 60%),radial-gradient(45% 55% at 0% 100%,#ffe7cc 0%,transparent 60%),linear-gradient(180deg,#eef5ff,#f6f9ff);
-  --feature:linear-gradient(160deg,#e6efff,#ffffff); --feature-line:rgba(37,99,217,.45);
-  --nav:rgba(246,249,255,.86);
 }
 :root{ --gold:#c99a3c; --r:22px; --ease:cubic-bezier(.2,.7,.2,1); }
 
@@ -168,14 +145,6 @@ h1 em,h2 em{font-style:normal;background:var(--em);-webkit-background-clip:text;
 .footer p{color:var(--ink2);font-size:14px;flex:1}
 .footer small{color:var(--ink2);font-size:13px;width:100%}
 
-/* Временный переключатель вариантов дизайна */
-.themes{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:70;display:flex;align-items:center;gap:6px;padding:6px 6px 6px 14px;border-radius:999px;background:#fff;box-shadow:0 12px 40px -10px rgba(0,0,0,.35),inset 0 0 0 1px rgba(0,0,0,.06);font:600 13px Montserrat,sans-serif;color:#555}
-.themes button{width:38px;height:38px;border-radius:50%;border:0;cursor:pointer;font:700 14px Montserrat,sans-serif;color:#fff}
-.themes button[data-set="a"]{background:linear-gradient(135deg,#f4d58b,#b8822a);color:#2a1c06}
-.themes button[data-set="b"]{background:linear-gradient(135deg,#1fa77c,#0f7a5a)}
-.themes button[data-set="c"]{background:linear-gradient(135deg,#3d8bff,#1d4fc4)}
-.themes button.on{box-shadow:0 0 0 3px #fff,0 0 0 5px #222}
-
 .mbar{display:none}
 
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
@@ -210,7 +179,6 @@ h1 em,h2 em{font-style:normal;background:var(--em);-webkit-background-clip:text;
   .trust{flex-direction:column;align-items:flex-start;gap:16px;padding:30px 24px}
   .lead-card{padding:24px 18px;gap:28px;border-radius:26px}
   .form{padding:18px}
-  .themes{bottom:84px}
   .mbar{display:flex;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:60;padding:10px 16px calc(10px + env(safe-area-inset-bottom));
     background:var(--nav);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .35s var(--ease)}
   .mbar.show{transform:none}
