@@ -19,6 +19,62 @@
     </g>`;
   };
 
+
+  // Паломник: A — ихрам, B — белая арабская одежда с платком, C — коричневый плащ (бишт) и шапочка
+  const SKIN = "#c68f5e", SKIN2 = "#ad7646", HAIR = "#24170c";
+  const face = (beard) => `
+      <path fill="${SKIN2}" d="M9 -76 L19 -76 C18 -70 18 -64 19 -58 L9 -58 C10 -64 10 -70 9 -76 Z"/>
+      <path fill="${SKIN}" d="M0 -92 C0 -104 10 -110 20 -108 C28 -106 31 -98 31 -92 L35 -86 C36 -84 34 -83 32 -83 L32 -80 C32 -76 29 -72 24 -71 C16 -69 6 -72 3 -79 C1 -83 0 -88 0 -92 Z"/>
+      <ellipse cx="9" cy="-90" rx="2.6" ry="4" fill="${SKIN2}"/>
+      <circle cx="25" cy="-93" r="1.5" fill="#1d120a"/>
+      <path fill="none" stroke="${HAIR}" stroke-width="1.7" stroke-linecap="round" d="M21.5 -97.5 L28.5 -97"/>
+      <path fill="${HAIR}" d="M4 -83 C8 -74 16 -69 24 -70 C29 -71 32 -75 32 -79.5 C29 -78 25 -78 23 -80 C18 -82 11 -82 7 -86 Z"/>
+      ${beard ? `<path fill="none" stroke="#3b2615" stroke-width="1.2" stroke-linecap="round" d="M26 -79 C28 -79 30 -80 31 -81"/>` : ""}`;
+  const farArm = (fill) => `
+      <path fill="${fill}" d="M10 -58 C20 -56 28 -48 32 -42 C38 -40 44 -38 48 -36 C50 -34 48 -31 45 -32 C38 -33 31 -35 26 -37 C20 -42 14 -48 8 -52 Z"/>
+      <circle cx="48" cy="-34" r="3.6" fill="${SKIN2}"/>`;
+  const torsoPath = "M-10 -4 C-14 -28 -10 -50 0 -60 C8 -67 20 -66 26 -58 C31 -48 31 -26 27 -4 C14 1 2 1 -10 -4 Z";
+  const nearArm = (fill, edge) => `
+      <path fill="${fill}" d="M8 -57 C16 -50 22 -38 26 -26 C28 -20 34 -16 40 -16 C44 -16 44 -11 40 -10 C30 -9 22 -14 18 -20 C12 -30 6 -42 2 -52 Z"/>
+      ${edge ? `<path fill="none" stroke="${edge}" stroke-width="1.6" d="M2 -52 C6 -42 12 -30 18 -20"/>` : ""}
+      <circle cx="42" cy="-13" r="3.7" fill="${SKIN}"/>`;
+  const sandal = `<path fill="#5a3a1c" d="M16 59 L33 59 C35 62 33 65 29 65 L16 65 Z"/>`;
+  const RIDERS = {
+    a: `${farArm(SKIN2)}
+      <path fill="url(#cloth)" d="M-8 -8 C6 -12 22 -10 34 -2 C40 4 38 14 32 18 L30 42 C28 46 20 46 19 42 L18 18 C10 12 0 8 -10 4 Z"/>
+      <path fill="none" stroke="#d6cfc2" stroke-width="1.4" d="M4 -6 C16 -2 26 4 32 12 M22 20 L23 40 M-6 0 C4 2 12 6 18 12"/>
+      <path fill="${SKIN}" d="M20 42 C21 48 22 54 21 60 L28 60 C29 54 30 48 30 42 Z"/>${sandal}
+      <path fill="url(#cloth)" d="${torsoPath}"/>
+      <path fill="none" stroke="#d6cfc2" stroke-width="1.6" d="M0 -60 C8 -44 16 -28 22 -8 M-6 -50 C0 -36 6 -22 10 -6 M10 -62 C16 -52 22 -42 26 -32"/>
+      ${nearArm("url(#cloth)", "#d6cfc2")}
+      ${face(true)}
+      <path fill="${HAIR}" d="M0 -92 C-1 -104 10 -111 21 -109 C27 -108 30 -104 31 -100 C24 -104 14 -103 8 -98 C6 -94 4 -90 2 -86 Z"/>`,
+    b: `${farArm("#efebe3")}
+      <path fill="url(#cloth)" d="M-8 -8 C6 -12 22 -10 34 -2 C40 4 38 14 32 18 L32 57 C30 61 18 61 17 57 L18 18 C10 12 0 8 -10 4 Z"/>
+      <path fill="none" stroke="#d6cfc2" stroke-width="1.4" d="M4 -6 C16 -2 26 4 32 12 M24 20 L25 56"/>${sandal}
+      <path fill="url(#cloth)" d="${torsoPath}"/>
+      <path fill="none" stroke="#d6cfc2" stroke-width="1.4" d="M22 -58 L20 -36"/>
+      ${nearArm("url(#cloth)", "#d6cfc2")}
+      ${face(true)}
+      <path fill="#fbfaf6" d="M-6 -88 C-6 -106 6 -116 20 -114 C30 -112 35 -104 34 -95 L29 -95 C27 -100 21 -103 13 -102 C9 -96 9 -86 11 -76 C8 -64 0 -52 -12 -44 C-16 -58 -12 -74 -6 -88 Z"/>
+      <path fill="none" stroke="#ddd6ca" stroke-width="1.3" d="M2 -96 C0 -84 -4 -70 -10 -56 M8 -100 C6 -88 4 -76 0 -64"/>
+      <path fill="#1b1410" d="M-3 -104 C6 -112 23 -112 33 -104 L32 -100.5 C23 -107.5 7 -107.5 -1 -100 Z"/>
+      <path fill="none" stroke="#1b1410" stroke-width="2" d="M-2 -98 C6 -105 22 -105 31 -98"/>`,
+    c: `${farArm("#5a3a20")}
+      <path fill="url(#cloth)" d="M-8 -8 C6 -12 22 -10 34 -2 C40 4 38 14 32 18 L32 57 C30 61 18 61 17 57 L18 18 C10 12 0 8 -10 4 Z"/>${sandal}
+      <path fill="url(#cloth)" d="${torsoPath}"/>
+      <path fill="url(#bisht)" d="M-12 0 C-16 -26 -12 -50 -2 -60 C4 -65 10 -66 14 -64 C10 -50 8 -30 10 -4 C14 10 20 20 26 30 C10 30 -6 22 -12 0 Z"/>
+      <path fill="none" stroke="#e1b552" stroke-width="2.2" d="M14 -64 C10 -50 8 -30 10 -4 C14 10 20 20 26 30"/>
+      ${nearArm("url(#bisht)", "#e1b552")}
+      ${face(true)}
+      <path fill="${HAIR}" d="M0 -92 C0 -98 2 -102 4 -104 C3 -98 3 -94 4 -90 Z"/>
+      <path fill="#fbfaf6" d="M-1 -98 C-1 -108 9 -113 19 -112 C28 -111 32 -105 32 -99 C22 -102 10 -102 -1 -98 Z"/>
+      <path fill="none" stroke="#ddd6ca" stroke-width="1.2" d="M1 -101 C10 -104 22 -104 31 -101"/>`,
+  };
+  let RIDER = "a";
+  try { const m = location.search.match(/rider=([abc])/); RIDER = m ? m[1] : (localStorage.getItem("umra-rider") || "a"); } catch (e) {}
+  if (!RIDERS[RIDER]) RIDER = "a";
+
   const CAMEL = `
 <svg viewBox="0 0 430 335" aria-hidden="true">
   <defs>
@@ -29,6 +85,7 @@
     <linearGradient id="legNear" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#a87439"/><stop offset=".5" stop-color="#c79458"/><stop offset="1" stop-color="#9c6831"/></linearGradient>
     <linearGradient id="legFar" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7f5428"/><stop offset="1" stop-color="#8f5f2e"/></linearGradient>
     <linearGradient id="cloth" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e3ddd2"/></linearGradient>
+    <linearGradient id="bisht" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4a2f18"/><stop offset=".6" stop-color="#6e4a28"/><stop offset="1" stop-color="#583820"/></linearGradient>
     <linearGradient id="rug" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8e1f1a"/><stop offset=".5" stop-color="#b8322a"/><stop offset="1" stop-color="#7d1a16"/></linearGradient>
   </defs>
 
@@ -66,24 +123,10 @@
     <g fill="#e8b84a"><circle cx="152" cy="172" r="3"/><circle cx="166" cy="176" r="3"/><circle cx="180" cy="178" r="3"/><circle cx="194" cy="178" r="3"/><circle cx="208" cy="177" r="3"/><circle cx="222" cy="174" r="3"/><circle cx="236" cy="170" r="3"/></g>
     <path fill="#6b3f1c" d="M164 96 C176 84 210 84 222 96 L218 104 C206 96 180 96 168 104 Z"/>
 
-    <!-- паломник в ихраме -->
-    <g id="rider" transform="translate(194 92)">
-      <path fill="url(#cloth)" d="M8 -8 C22 -6 30 6 34 22 C36 34 34 46 30 56 L22 58 C22 44 18 30 10 22 Z"/>
-      <path fill="#c48a5a" d="M28 54 C30 62 32 70 30 76 L22 76 C22 68 21 62 22 56 Z"/>
-      <path fill="#6b4422" d="M18 76 L34 76 C36 79 34 81 30 81 L18 81 Z"/>
-      <path fill="url(#cloth)" d="M-14 -4 C-16 -26 -12 -50 -2 -62 C6 -70 18 -70 24 -62 C30 -52 30 -30 26 -8 C14 -2 -2 -2 -14 -4 Z"/>
-      <path fill="none" stroke="#d6cfc2" stroke-width="2" d="M-4 -58 C6 -46 16 -30 24 -14"/>
-      <path fill="#c48a5a" d="M20 -60 C26 -64 30 -60 30 -52 L22 -52 Z"/>
-      <path fill="url(#cloth)" d="M14 -58 C24 -54 34 -46 44 -38 C48 -35 46 -30 42 -32 C32 -38 22 -44 12 -48 Z"/>
-      <circle cx="46" cy="-34" r="4.2" fill="#c48a5a"/>
-      <rect x="2" y="-80" width="16" height="12" rx="4" fill="#c48a5a"/>
-      <circle cx="10" cy="-88" r="13" fill="#c48a5a"/>
-      <path fill="#2e1d10" d="M-3 -90 C-2 -102 10 -106 20 -100 C24 -97 24 -92 22 -90 C16 -96 4 -96 -3 -90 Z"/>
-      <path fill="#3a2414" d="M0 -84 C2 -74 14 -72 21 -80 C20 -76 16 -70 10 -70 C4 -70 0 -76 0 -84 Z"/>
-      <circle cx="17" cy="-89" r="1.4" fill="#2b1a0b"/>
-    </g>
+    <!-- паломник (вариант A/B/C) -->
+    <g id="rider" transform="translate(194 92)">${RIDERS[RIDER]}</g>
     <!-- поводья от руки к уздечке -->
-    <path id="rein" fill="none" stroke="#5a3a1a" stroke-width="1.6" d="M240 58 C300 70 350 74 382 82"/>
+    <path id="rein" fill="none" stroke="#5a3a1a" stroke-width="1.6" d="M242 58 C300 70 350 74 382 82"/>
   </g>
 
 </svg>`;
@@ -102,6 +145,15 @@
   dunes.innerHTML = LAND + `<div class="camel" id="camel"><div class="camel__inner">${CAMEL}</div></div>`;
   document.body.prepend(dunes);
   document.body.prepend(sun);
+
+  // Переключатель вариантов паломника (только на странице-примере)
+  const pick = document.getElementById("riderPick");
+  if (pick) {
+    pick.querySelectorAll("[data-rider]").forEach((b) => {
+      b.classList.toggle("on", b.dataset.rider === RIDER);
+      b.addEventListener("click", () => { try { localStorage.setItem("umra-rider", b.dataset.rider); } catch (e) {} const u = new URL(location.href); u.searchParams.set("rider", b.dataset.rider); location.replace(u); });
+    });
+  }
 
   const camel = dunes.querySelector("#camel");
   const $ = (id) => camel.querySelector("#" + id);
