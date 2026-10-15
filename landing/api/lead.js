@@ -7,7 +7,15 @@ const SERVICES = { bot: "Telegram-бот", site: "Сайт / лендинг", au
 const clean = (v, max) => String(v ?? "").trim().slice(0, max);
 const esc = (s) => s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
 
+// Сайты, которые тоже шлют заявки через эту функцию (поле site в заявке)
+const SITES = { umra: "🕋 Umra Consulting" };
+
 module.exports = async (req, res) => {
+  // Разрешаем отправку с других наших сайтов (например, Umra Consulting)
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  if (req.method === "OPTIONS") return res.status(204).end();
   if (req.method !== "POST") return res.status(405).json({ ok: false });
 
   const b = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
@@ -20,10 +28,11 @@ module.exports = async (req, res) => {
   const chatId = process.env.TELEGRAM_CHAT_ID || DEFAULT_CHAT_ID;
   if (!token || !chatId) return res.status(500).json({ ok: false, error: "not_configured" });
 
+  const site = SITES[b.site];
   const lines = [
-    "🆕 <b>Новая заявка с сайта</b>",
+    site ? `🆕 <b>Новая заявка — ${site}</b>` : "🆕 <b>Новая заявка с сайта</b>",
     "",
-    `📦 <b>Услуга:</b> ${SERVICES[b.service] || "—"}`,
+    site ? `🕋 <b>Тариф:</b> ${esc(clean(b.tariff, 40)) || "—"}` : `📦 <b>Услуга:</b> ${SERVICES[b.service] || "—"}`,
     `👤 <b>Имя:</b> ${esc(clean(b.name, 80)) || "—"}`,
     `📞 <b>Телефон:</b> ${esc(phone)}`,
     `🌐 <b>Til / Язык:</b> ${b.lang === "ru" ? "RU" : "UZ"}`,
