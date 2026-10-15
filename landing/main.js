@@ -45,13 +45,11 @@
       const set = COVER[p.type] || COVER.bot;
       const w = el(p.url ? "a" : "article", "work reveal in");
       if (p.url) { w.href = p.url; w.target = "_blank"; w.rel = "noopener"; }
+      const name = p.title[lang] || p.title.uz;
       const cover = el("div", "work__cover work__cover--" + set[n % set.length]);
-      if (p.img) {
-        const im = el("img"); im.src = p.img; im.alt = p.title[lang] || p.title.uz; im.loading = "lazy";
-        cover.appendChild(im);
-      } else {
-        cover.innerHTML = `<svg><use href="#${ICON[p.type] || "i-spark"}"/></svg>`;
-      }
+      if (p.type === "site" && (p.img || p.url)) cover.appendChild(siteShot(p, name));
+      else if (p.type === "bot") cover.appendChild(botChat(p, name));
+      else cover.innerHTML = `<svg><use href="#${ICON[p.type] || "i-spark"}"/></svg>`;
       w.append(cover, el("span", "tag", t("work.tag." + p.type)), el("h4", "", p.title[lang] || p.title.uz), el("p", "", p.desc[lang] || p.desc.uz));
       if (p.url) {
         const l = el("span", "work__link", t("work.open") + " ");
@@ -60,6 +58,54 @@
       }
       box.appendChild(w);
     });
+  }
+
+  // Обложка сайта: окно браузера со скриншотом страницы
+  function siteShot(p, name) {
+    const win = el("div", "bw");
+    const bar = el("div", "bw__bar");
+    bar.append(el("i"), el("i"), el("i"), el("span", "bw__url", (p.url || "").replace(/^https?:\/\//, "").replace(/\/$/, "")));
+    const view = el("div", "bw__view");
+    const im = el("img");
+    im.alt = name; im.loading = "lazy"; im.decoding = "async";
+    let tries = 0;
+    const src = () => p.img || "https://s0.wp.com/mshots/v1/" + encodeURIComponent(p.url) + "?w=1200&h=1500" + (tries ? "&r=" + tries : "");
+    // Сервис скриншотов сначала отдаёт заглушку 400×300 — ждём и пробуем ещё раз
+    im.onload = () => {
+      if (!p.img && im.naturalWidth === 400 && im.naturalHeight === 300 && tries < 5) {
+        tries++; setTimeout(() => (im.src = src()), 3000);
+      } else view.classList.add("ok");
+    };
+    im.onerror = () => { view.classList.add("fail"); view.insertAdjacentHTML("beforeend", '<svg><use href="#i-web"/></svg>'); };
+    im.src = src();
+    view.appendChild(im);
+    win.append(bar, view);
+    return win;
+  }
+
+  // Обложка бота: мини-чат Telegram с аватаркой бота
+  function botChat(p, name) {
+    const user = (p.url || "").split("t.me/")[1] || "";
+    const box = el("div", "tgc");
+    const head = el("div", "tgc__head");
+    const ava = el("span", "tgc__ava", name.trim()[0] || "B");
+    if (user) {
+      const im = el("img"); im.alt = ""; im.loading = "lazy";
+      im.src = "https://t.me/i/userpic/320/" + user.replace(/\/.*/, "") + ".jpg";
+      im.onload = () => { if (im.naturalWidth > 1) ava.classList.add("has-img"); };
+      ava.appendChild(im);
+    }
+    const who = el("div");
+    who.append(el("b", "", name), el("small", "", user ? "@" + user : "bot"));
+    head.append(ava, who);
+    const body = el("div", "tgc__body");
+    const m1 = el("div", "tgc__m", t("work.bot.hi"));
+    const btns = el("div", "tgc__btns");
+    btns.append(el("span", "", t("work.bot.b1")), el("span", "", t("work.bot.b2")));
+    m1.appendChild(btns);
+    body.append(m1, el("div", "tgc__m tgc__m--me", t("work.bot.me")), el("div", "tgc__m", t("work.bot.ok")));
+    box.append(head, body);
+    return box;
   }
 
   function applyLang(next) {

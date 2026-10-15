@@ -49,6 +49,7 @@ window.I18N = {
 
     "work.eye": "Ishlarimiz", "work.h2": "Allaqachon ishlayotgan loyihalar.",
     "work.tag.bot": "Yetkazib berish boti", "work.tag.site": "Lending", "work.open": "Ko'rish",
+    "work.bot.hi": "Assalomu alaykum! 👋 Buyurtma beramizmi?", "work.bot.b1": "🍽 Menyu", "work.bot.b2": "🛒 Savat", "work.bot.me": "Ha, menyuni ko'rsating", "work.bot.ok": "✅ Buyurtma qabul qilindi!",
 
     "proc.eye": "Qanday ishlaymiz", "proc.h2": "Arizadan ishga tushirishgacha — to'rt qadam.",
     "s1.h": "Ariza", "s1.p": "Ariza qoldirasiz — bir kun ichida bog'lanamiz.",
@@ -139,6 +140,7 @@ window.I18N = {
 
     "work.eye": "Наши работы", "work.h2": "Проекты, которые уже работают.",
     "work.tag.bot": "Бот доставки", "work.tag.site": "Лендинг", "work.open": "Открыть",
+    "work.bot.hi": "Здравствуйте! 👋 Оформим заказ?", "work.bot.b1": "🍽 Меню", "work.bot.b2": "🛒 Корзина", "work.bot.me": "Да, покажите меню", "work.bot.ok": "✅ Заказ принят!",
 
     "proc.eye": "Как работаем", "proc.h2": "От заявки до запуска — четыре шага.",
     "s1.h": "Заявка", "s1.p": "Оставляете заявку — связываемся в течение дня.",
