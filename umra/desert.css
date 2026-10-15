@@ -1,0 +1,24 @@
+/* Пустыня и верблюд на заднем фоне (включается классом .desert на <body>) */
+.desert{background:linear-gradient(180deg,#fff7e8 0%,#fff1da 55%,#fde6c2 100%) fixed}
+.desert .hero{background:transparent}
+.desert .section--alt{background:transparent}
+.desert main,.desert .footer{position:relative;z-index:1}
+
+.dunes{position:fixed;left:0;right:0;bottom:0;height:min(30vh,280px);z-index:0;pointer-events:none}
+.dunes svg.land{position:absolute;inset:0;width:100%;height:100%}
+.sun{position:fixed;right:9vw;bottom:min(22vh,210px);width:min(18vw,170px);aspect-ratio:1;border-radius:50%;z-index:0;pointer-events:none;
+  background:radial-gradient(circle,#ffe2a1 0%,#ffcf73 55%,rgba(255,207,115,0) 72%);opacity:.75}
+
+.camel{position:absolute;left:0;bottom:calc(min(30vh,280px) * .34);width:min(150px,26vw);will-change:transform;transition:none}
+.camel__inner{transform-origin:50% 100%;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.camel.left .camel__inner{transform:scaleX(-1)}
+.camel svg{display:block;width:100%;height:auto;overflow:visible}
+.camel .leg{transform-box:fill-box;transform-origin:50% 0}
+.camel.walking .leg.a{animation:step .5s ease-in-out infinite alternate}
+.camel.walking .leg.b{animation:step .5s ease-in-out infinite alternate-reverse}
+.camel.walking .body{animation:bob .25s ease-in-out infinite alternate}
+@keyframes step{from{transform:rotate(16deg)}to{transform:rotate(-16deg)}}
+@keyframes bob{from{transform:translateY(0)}to{transform:translateY(-1.6px)}}
+.camel__shadow{position:absolute;left:12%;right:12%;bottom:-6px;height:10px;border-radius:50%;background:radial-gradient(rgba(120,80,30,.28),transparent 70%)}
+
+@media (prefers-reduced-motion:reduce){.camel.walking .leg,.camel.walking .body{animation:none}}
