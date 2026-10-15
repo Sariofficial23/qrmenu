@@ -10,6 +10,20 @@
   try { const saved = localStorage.getItem("lang"); if (saved === "ru" || saved === "uz") lang = saved; } catch (e) {}
   const t = (k) => T[lang][k] ?? T.uz[k] ?? "";
 
+  // Пиксель Meta: просмотр страницы, заявка (Lead) и клики по контактам (Contact)
+  const track = (ev, data) => { try { window.fbq && window.fbq("track", ev, data); } catch (e) {} };
+  if (/^\d{5,20}$/.test(String(S.metaPixel || ""))) {
+    !function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = "2.0"; n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s); }(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+    window.fbq("init", String(S.metaPixel));
+    window.fbq("track", "PageView");
+  }
+  document.addEventListener("click", (e) => {
+    const a = e.target.closest && e.target.closest("[data-tg-link],[data-phone-link]");
+    if (a) track("Contact", { method: a.hasAttribute("data-tg-link") ? "telegram" : "phone" });
+  });
+
   // Контакты из config.js
   const ig = "https://instagram.com/" + S.instagram;
   const tg = "https://t.me/" + S.telegram;
@@ -233,6 +247,7 @@
       clearTimeout(timer);
       if (!res.ok) throw new Error(res.status);
       form.reset();
+      track("Lead", { content_name: data.service });
       setNote("ok", "form.ok");
     } catch (err) {
       setNote("err", "form.fail");

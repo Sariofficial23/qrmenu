@@ -5,6 +5,7 @@ window.SITE = {
   telegram: "Sardor199821",           // ник Telegram для связи без @
   phone: "+998 99 362 49 04",         // телефон для звонков
   city: { uz: "Toshkent", ru: "Ташкент" },
+  metaPixel: "",                      // ID пикселя Meta (только цифры) из Events Manager
 
   // Цифры на сайте (пока примерные — замените на свои)
   stats: [
