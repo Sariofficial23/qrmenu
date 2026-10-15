@@ -46,6 +46,16 @@
   $$("[data-lang]").forEach((b) => b.addEventListener("click", () => applyLang(b.dataset.lang)));
   applyLang(lang);
 
+  // Временный переключатель вариантов дизайна A / B / C
+  const setTheme = (v) => {
+    document.documentElement.dataset.theme = v;
+    try { localStorage.setItem("umra-theme", v); } catch (e) {}
+    $$("[data-set]").forEach((b) => b.classList.toggle("on", b.dataset.set === v));
+    const u = new URL(location.href); u.searchParams.set("theme", v); history.replaceState(null, "", u);
+  };
+  $$("[data-set]").forEach((b) => b.addEventListener("click", () => setTheme(b.dataset.set)));
+  setTheme(document.documentElement.dataset.theme || "a");
+
   // Анимация логотипа: проигрывается один раз и останавливается на последнем кадре
   const intro = $("#intro");
   if (intro) intro.addEventListener("ended", () => { intro.pause(); });
