@@ -7,7 +7,7 @@ window.I18N = {
     "cta.lead": "Ariza qoldirish",
 
     "hero.pill": "Biznes uchun AI-mahsulotlar",
-    "hero.h1": "Botlar, saytlar va avtomatlashtirish&nbsp;— <span class=\"grad\">siz uchun ishlaydi.</span>",
+    "hero.h1": "Botlar, saytlar va avtomatlashtirish — <span class=\"grad\">siz uchun ishlaydi.</span>",
     "hero.lead": "Sun'iy intellektli Telegram-botlar, yetkazib berish botlari, sotuvchi saytlar hamda kafe va restoranlar uchun avtomatlashtirish tizimlarini yaratamiz. G'oyadan ishga tushirishgacha — hammasini o'zimiz qilamiz.",
     "chip.bot.t": "Telegram-botlar", "chip.bot.s": "AI, yetkazib berish, arizalar",
     "chip.site.t": "Saytlar va lendinglar", "chip.site.s": "Arizalar va sotuvlar uchun",

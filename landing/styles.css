@@ -372,3 +372,22 @@ a.work:hover .work__link svg{transform:translateX(3px)}
 .pv-stats{display:flex;gap:28px;margin-top:40px;padding-top:24px;border-top:1px solid rgba(255,255,255,.15)}
 .pv-stats b{display:block;color:#e0bd6b;font-size:16px}
 .pv-stats small{color:rgba(255,255,255,.65);font-size:13px}
+
+/* Адаптив: элементы сетки не растягивают экран, длинные слова переносятся */
+.hero__grid>*,.bento>*,.works>*,.lead-card>*,.feat>*,.steps>*{min-width:0}
+h1,h2,h3,.lead,.chip b,.chip small{overflow-wrap:break-word}
+@media (max-width:640px){
+  h1{font-size:clamp(30px,9.2vw,40px);letter-spacing:-.035em}
+  h2{font-size:clamp(26px,7.4vw,34px)}
+  .chip{padding:12px}
+  .lead-card h2{font-size:clamp(26px,7.4vw,34px)}
+}
+@media (max-width:380px){
+  .nav__right .icon-btn{display:none}
+  .logo{font-size:16px}
+  .lang button{padding:8px 8px}
+  .hero__cta .btn{padding:0 16px}
+}
+.form>*,.seg{min-width:0}
+.seg span{white-space:normal}
+@media (max-width:380px){.seg span{font-size:13px;padding:11px 8px;gap:6px}.form{padding:14px}.lead-card{padding:16px}}
