@@ -101,6 +101,34 @@ h1 em,h2 em{font-style:normal;background:var(--em);-webkit-background-clip:text;
 .badge{position:absolute;top:-13px;left:30px;padding:6px 14px;border-radius:999px;background:var(--btn);color:var(--btn-ink);font-size:12px;font-weight:700;letter-spacing:.04em}
 .note{margin-top:26px;color:var(--ink2);font-size:14px;text-align:center}
 
+/* Featured paket (eng arzon yo'nalish) */
+.pkg{display:grid;grid-template-columns:.9fr 1.1fr;gap:0;border-radius:26px;overflow:hidden;background:var(--feature);box-shadow:inset 0 0 0 1.5px var(--feature-line),0 30px 60px -30px var(--btn-shadow)}
+.pkg__media{position:relative;min-height:360px;background:var(--bg2)}
+.pkg__media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pkg__price{position:absolute;left:18px;bottom:18px;padding:10px 20px;border-radius:999px;background:var(--btn);color:var(--btn-ink);font-weight:700;font-size:20px;box-shadow:0 12px 30px -10px var(--btn-shadow)}
+.pkg__play{position:absolute;right:16px;top:16px;display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 15px;border-radius:999px;background:rgba(20,12,0,.55);color:#fff;font-weight:600;font-size:13.5px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.pkg__play svg{width:18px;height:18px}
+.pkg__body{padding:32px 34px;display:flex;flex-direction:column;gap:14px}
+.pkg__chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;padding:7px 14px;border-radius:999px;background:#fff;box-shadow:inset 0 0 0 1px var(--line);font-size:13px;font-weight:600;color:var(--ink2)}
+.chip--gold{background:var(--btn);color:var(--btn-ink);box-shadow:none}
+.pkg__dates{font-size:14.5px;color:var(--ink2)}
+.pkg__inc-h{font-weight:700;font-size:15px;margin-top:2px}
+.pkg__list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:9px 18px}
+.pkg__list li{display:flex;gap:9px;font-size:14.5px}
+.pkg__list li svg{color:var(--icon);font-size:17px;margin-top:3px;flex:none}
+.pkg__gifts{font-size:14px;color:var(--ink);background:var(--icon-bg);padding:12px 15px;border-radius:14px}
+.pkg__hotels{display:grid;gap:8px}
+.pkg__hotels>div{display:flex;gap:10px;align-items:flex-start;font-size:14.5px}
+.pkg__hotels .pin{color:var(--icon);font-size:18px;margin-top:2px;flex:none}
+.pkg__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:6px}
+@media(max-width:760px){
+  .pkg{grid-template-columns:1fr}
+  .pkg__media{min-height:240px}
+  .pkg__list{grid-template-columns:1fr}
+  .pkg__body{padding:26px 22px}
+}
+
 .trust{display:flex;align-items:center;gap:44px;padding:52px;border-radius:30px;background:var(--feature);box-shadow:inset 0 0 0 1.5px var(--feature-line)}
 .trust__zero{font-family:"Cormorant Garamond",serif;font-size:clamp(84px,12vw,150px);font-weight:700;line-height:.9;background:var(--em);-webkit-background-clip:text;background-clip:text;color:transparent;flex:none}
 .trust h2{margin-bottom:14px;font-size:clamp(28px,3.4vw,42px)}
