@@ -3,7 +3,7 @@ window.SITE = {
   brand: "Umra Consulting",
   phone: "+99877 070 00 59",         // основной телефон (кнопки звонка)
   phone2: "+99877 277 00 59",        // второй телефон (показывается в блоке контактов)
-  telegram: "Sardor199821",          // ник Telegram без @
+  telegram: "hayotbek_umra",         // ник Telegram без @
   instagram: "",                      // ник Instagram без @ (пусто — кнопка скрыта)
   city: { uz: "Toshkent", ru: "Ташкент" },
   firms: 14,                          // сколько лицензированных турфирм

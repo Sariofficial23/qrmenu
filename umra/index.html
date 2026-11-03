@@ -170,18 +170,18 @@
         <article class="tariff reveal">
           <h3 data-t="t1.n"></h3><p class="tariff__d" data-t="t1.d"></p>
           <ul><li><svg><use href="#i-check"/></svg><span data-t="t1.l1"></span></li><li><svg><use href="#i-check"/></svg><span data-t="t1.l2"></span></li><li><svg><use href="#i-check"/></svg><span data-t="t1.l3"></span></li></ul>
-          <a class="btn btn--line" href="#lead" data-pick="eco"><span data-t="tar.btn"></span><svg><use href="#i-arrow"/></svg></a>
+          <a class="btn btn--line" href="#lead" data-pick="eco" data-detail-open="eco"><span data-t="tar.btn"></span><svg><use href="#i-arrow"/></svg></a>
         </article>
         <article class="tariff tariff--main reveal">
           <span class="badge" data-t="t2.badge"></span>
           <h3 data-t="t2.n"></h3><p class="tariff__d" data-t="t2.d"></p>
           <ul><li><svg><use href="#i-check"/></svg><span data-t="t2.l1"></span></li><li><svg><use href="#i-check"/></svg><span data-t="t2.l2"></span></li><li><svg><use href="#i-check"/></svg><span data-t="t2.l3"></span></li></ul>
-          <a class="btn btn--gold" href="#lead" data-pick="std"><span data-t="tar.btn"></span><svg><use href="#i-arrow"/></svg></a>
+          <a class="btn btn--gold" href="#lead" data-pick="std" data-detail-open="std"><span data-t="tar.btn"></span><svg><use href="#i-arrow"/></svg></a>
         </article>
         <article class="tariff reveal">
           <h3 data-t="t3.n"></h3><p class="tariff__d" data-t="t3.d"></p>
           <ul><li><svg><use href="#i-check"/></svg><span data-t="t3.l1"></span></li><li><svg><use href="#i-check"/></svg><span data-t="t3.l2"></span></li><li><svg><use href="#i-check"/></svg><span data-t="t3.l3"></span></li></ul>
-          <a class="btn btn--line" href="#lead" data-pick="prem"><span data-t="tar.btn"></span><svg><use href="#i-arrow"/></svg></a>
+          <a class="btn btn--line" href="#lead" data-pick="prem" data-detail-open="prem"><span data-t="tar.btn"></span><svg><use href="#i-arrow"/></svg></a>
         </article>
       </div>
       <p class="note reveal" data-t="tar.note"></p>
@@ -243,6 +243,60 @@
     </div>
   </section>
 </main>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal__back" data-close></div>
+  <div class="modal__card" role="dialog" aria-modal="true">
+    <button class="modal__x" type="button" data-close aria-label="×">×</button>
+
+    <div class="modal__panel" data-detail="eco">
+      <span class="chip chip--gold" data-t="hot.price"></span>
+      <h3 data-t="t1.n"></h3>
+      <p class="modal__sub"><span data-t="hot.badge"></span> · <span data-t="hot.route"></span></p>
+      <p class="pkg__inc-h" data-t="hot.inc"></p>
+      <ul class="modal__list">
+        <li><svg><use href="#i-check"/></svg><span data-t="hot.i1"></span></li>
+        <li><svg><use href="#i-check"/></svg><span data-t="hot.i2"></span></li>
+        <li><svg><use href="#i-check"/></svg><span data-t="hot.i3"></span></li>
+        <li><svg><use href="#i-check"/></svg><span data-t="hot.i4"></span></li>
+        <li><svg><use href="#i-check"/></svg><span data-t="hot.i5"></span></li>
+        <li><svg><use href="#i-check"/></svg><span data-t="hot.i6"></span></li>
+        <li><svg><use href="#i-check"/></svg><span data-t="hot.i7"></span></li>
+      </ul>
+      <p class="pkg__gifts" data-t="hot.gifts"></p>
+      <div class="pkg__hotels">
+        <div><svg class="pin"><use href="#i-pin"/></svg><span data-t="hot.h.makka"></span></div>
+        <div><svg class="pin"><use href="#i-pin"/></svg><span data-t="hot.h.madina"></span></div>
+      </div>
+      <a class="btn btn--gold btn--block" href="#lead" data-pick="eco" data-close><span data-t="d.cta"></span><svg><use href="#i-arrow"/></svg></a>
+    </div>
+
+    <div class="modal__panel" data-detail="std">
+      <span class="chip chip--gold" data-t="t2.badge"></span>
+      <h3 data-t="t2.n"></h3>
+      <p class="modal__sub" data-t="t2.d"></p>
+      <ul class="modal__list">
+        <li><svg><use href="#i-check"/></svg><span data-t="t2.l1"></span></li>
+        <li><svg><use href="#i-check"/></svg><span data-t="t2.l2"></span></li>
+        <li><svg><use href="#i-check"/></svg><span data-t="t2.l3"></span></li>
+      </ul>
+      <p class="modal__note" data-t="d.note"></p>
+      <a class="btn btn--gold btn--block" href="#lead" data-pick="std" data-close><span data-t="d.cta"></span><svg><use href="#i-arrow"/></svg></a>
+    </div>
+
+    <div class="modal__panel" data-detail="prem">
+      <h3 data-t="t3.n"></h3>
+      <p class="modal__sub" data-t="t3.d"></p>
+      <ul class="modal__list">
+        <li><svg><use href="#i-check"/></svg><span data-t="t3.l1"></span></li>
+        <li><svg><use href="#i-check"/></svg><span data-t="t3.l2"></span></li>
+        <li><svg><use href="#i-check"/></svg><span data-t="t3.l3"></span></li>
+      </ul>
+      <p class="modal__note" data-t="d.note"></p>
+      <a class="btn btn--gold btn--block" href="#lead" data-pick="prem" data-close><span data-t="d.cta"></span><svg><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</div>
 
 <footer class="footer">
   <div class="wrap footer__in">

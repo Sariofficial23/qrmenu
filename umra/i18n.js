@@ -42,7 +42,9 @@ window.I18N = {
     "t2.l1": "Viza va to'g'ridan-to'g'ri parvoz", "t2.l2": "Haramga yaqin mehmonxona", "t2.l3": "Tajribali hamroh va ziyoratlar",
     "t3.n": "Premium", "t3.d": "Maksimal qulaylik",
     "t3.l1": "Haram yonidagi 5★ mehmonxona", "t3.l2": "Kichik guruh yoki individual", "t3.l3": "Transfer va to'liq xizmat",
-    "tar.btn": "Narxini bilish",
+    "tar.btn": "Batafsil",
+    "d.note": "Aniq narx firmaga, sanaga va mehmonxonaga qarab belgilanadi. Ariza qoldiring — mutaxassis qo'ng'iroq qilib aytib beradi.",
+    "d.cta": "Ariza qoldirish",
 
     "hot.eye": "Eng arzon yo'nalish",
     "hot.h2": "Litsenziyalangan Umra safari — <em>$990 dan</em>",
@@ -130,7 +132,9 @@ window.I18N = {
     "t2.l1": "Виза и прямой перелёт", "t2.l2": "Отель рядом с Харамом", "t2.l3": "Опытный сопровождающий и зиярат",
     "t3.n": "Премиум", "t3.d": "Максимальный комфорт",
     "t3.l1": "Отель 5★ у Харама", "t3.l2": "Малая группа или индивидуально", "t3.l3": "Трансферы и полный сервис",
-    "tar.btn": "Узнать цену",
+    "tar.btn": "Подробнее",
+    "d.note": "Точная цена зависит от фирмы, дат и отеля. Оставьте заявку — специалист перезвонит и назовёт цену.",
+    "d.cta": "Оставить заявку",
 
     "hot.eye": "Самое выгодное направление",
     "hot.h2": "Лицензированная Умра — <em>от $990</em>",

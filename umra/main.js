@@ -65,10 +65,28 @@
     { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
   $$(".reveal").forEach((el, i) => { el.style.transitionDelay = (el.closest(".hero") ? i * 80 : 0) + "ms"; io.observe(el); });
 
-  // «Narxini bilish» выбирает тариф в форме
+  // «Batafsil» выбирает тариф в форме
   $$("[data-pick]").forEach((a) => a.addEventListener("click", () => {
     const r = $(`input[name="tariff"][value="${a.dataset.pick}"]`); if (r) r.checked = true;
   }));
+
+  // Модальное окно с деталями тарифа
+  const modal = $("#modal");
+  const openDetail = (key) => {
+    $$(".modal__panel").forEach((p) => p.classList.toggle("on", p.dataset.detail === key));
+    modal.hidden = false;
+    document.body.style.overflow = "hidden";
+  };
+  const closeModal = () => { modal.hidden = true; document.body.style.overflow = ""; };
+  $$("[data-detail-open]").forEach((a) => a.addEventListener("click", (e) => {
+    e.preventDefault();
+    const r = $(`input[name="tariff"][value="${a.dataset.detailOpen}"]`); if (r) r.checked = true;
+    openDetail(a.dataset.detailOpen);
+  }));
+  if (modal) {
+    modal.addEventListener("click", (e) => { if (e.target.closest("[data-close]")) closeModal(); });
+    addEventListener("keydown", (e) => { if (e.key === "Escape" && !modal.hidden) closeModal(); });
+  }
 
   // Форма
   const form = $("#form"), note = $("#formNote"), phoneField = form.phone.closest(".field");
