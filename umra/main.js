@@ -22,6 +22,8 @@
   const tel = "tel:" + String(S.phone).replace(/[^\d+]/g, "");
   $$("[data-phone]").forEach((e) => (e.textContent = S.phone));
   $$("[data-phone-link]").forEach((e) => (e.href = tel));
+  $$("[data-phone2]").forEach((e) => (e.textContent = S.phone2 || ""));
+  $$("[data-phone-link2]").forEach((e) => { if (S.phone2) e.href = "tel:" + String(S.phone2).replace(/[^\d+]/g, ""); else e.hidden = true; });
   $$("[data-tg-link]").forEach((e) => { if (S.telegram) e.href = "https://t.me/" + S.telegram; else e.hidden = true; });
   $$("[data-tg-handle]").forEach((e) => (e.textContent = "@" + S.telegram));
   $$("[data-ig-link]").forEach((e) => { if (S.instagram) e.href = "https://instagram.com/" + S.instagram; else e.hidden = true; });
