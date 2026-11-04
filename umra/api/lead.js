@@ -27,7 +27,13 @@ module.exports = async (req, res) => {
       if (c && c.type !== "private") seen[c.id] = { id: c.id, title: c.title, type: c.type, status: u.my_chat_member ? u.my_chat_member.new_chat_member.status : undefined };
       if (u.message && u.message.migrate_to_chat_id) seen[u.message.migrate_to_chat_id] = { id: u.message.migrate_to_chat_id, title: c && c.title, type: "supergroup (migrated)" };
     }
+    let test;
+    if (req.query.send === "1") {
+      const t = await call("sendMessage", { chat_id: cid, text: "✅ Sinov xabari: Umra Consulting sayti shu guruhga ulandi. Saytdagi arizalar endi shu yerga keladi." });
+      test = t.ok ? "sent" : t.description;
+    }
     return res.status(200).json({
+      test_message: test,
       bot: me.ok ? "@" + me.result.username : me.description,
       configured_chat_id: cid,
       configured_chat: chat.ok ? { title: chat.result.title, type: chat.result.type } : { error: chat.description },
