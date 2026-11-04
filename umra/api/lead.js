@@ -10,6 +10,31 @@ module.exports = async (req, res) => {
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   if (req.method === "OPTIONS") return res.status(204).end();
+  // Временная диагностика: GET /api/lead?diag=<DIAG_KEY> → какой бот, какая группа по TELEGRAM_CHAT_ID и в каких группах бот был
+  if (req.method === "GET" && process.env.DIAG_KEY && req.query && req.query.diag === process.env.DIAG_KEY) {
+    const tk = process.env.TELEGRAM_BOT_TOKEN, cid = process.env.TELEGRAM_CHAT_ID;
+    const call = (m, p) => fetch(`https://api.telegram.org/bot${tk}/${m}`, {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(p || {}),
+      signal: AbortSignal.timeout(10000),
+    }).then((r) => r.json()).catch((e) => ({ ok: false, description: e.message }));
+    const me = await call("getMe");
+    const chat = await call("getChat", { chat_id: cid });
+    const upd = await call("getUpdates");
+    const seen = {};
+    for (const u of upd.result || []) {
+      const ev = u.message || u.my_chat_member || u.chat_member || {};
+      const c = ev.chat;
+      if (c && c.type !== "private") seen[c.id] = { id: c.id, title: c.title, type: c.type, status: u.my_chat_member ? u.my_chat_member.new_chat_member.status : undefined };
+      if (u.message && u.message.migrate_to_chat_id) seen[u.message.migrate_to_chat_id] = { id: u.message.migrate_to_chat_id, title: c && c.title, type: "supergroup (migrated)" };
+    }
+    return res.status(200).json({
+      bot: me.ok ? "@" + me.result.username : me.description,
+      configured_chat_id: cid,
+      configured_chat: chat.ok ? { title: chat.result.title, type: chat.result.type } : { error: chat.description },
+      groups_seen_by_bot: Object.values(seen),
+      updates_error: upd.ok ? undefined : upd.description,
+    });
+  }
   if (req.method !== "POST") return res.status(405).json({ ok: false });
 
   const b = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
