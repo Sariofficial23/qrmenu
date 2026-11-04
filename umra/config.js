@@ -8,6 +8,6 @@ window.SITE = {
   city: { uz: "Toshkent", ru: "Ташкент" },
   firms: 14,                          // сколько лицензированных турфирм
   metaPixel: "",                      // ID пикселя Meta (только цифры)
-  // Куда отправляются заявки (функция на сайте AI Hizmatlar шлёт их в Telegram-группу)
-  leadApi: "https://ai-studio-landing-three.vercel.app/api/lead",
+  // Куда отправляются заявки: своя функция umra/api/lead.js → бот → Telegram-группа
+  leadApi: "/api/lead",
 };

@@ -31,21 +31,31 @@ module.exports = async (req, res) => {
     `🌐 <b>Til / Язык:</b> ${b.lang === "ru" ? "RU" : "UZ"}`,
   ];
 
-  let r;
+  const send = (chat) => fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+    method: "POST",
+    signal: AbortSignal.timeout(10000),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ chat_id: chat, text: lines.join("\n"), parse_mode: "HTML" }),
+  });
+
   try {
-    r = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-      method: "POST",
-      signal: AbortSignal.timeout(10000),
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ chat_id: chatId, text: lines.join("\n"), parse_mode: "HTML" }),
-    });
+    let r = await send(chatId);
+    let data = await r.json().catch(() => ({}));
+    // Группа стала супергруппой → у неё новый id. Отправляем туда и пишем в лог, чтобы обновить TELEGRAM_CHAT_ID.
+    const moved = data && data.parameters && data.parameters.migrate_to_chat_id;
+    if (!r.ok && moved) {
+      console.warn("telegram: group migrated, set TELEGRAM_CHAT_ID to", moved);
+      r = await send(moved);
+      data = await r.json().catch(() => ({}));
+    }
+    if (!r.ok) {
+      console.error("telegram", r.status, data && data.description);
+      return res.status(502).json({ ok: false, error: "telegram" });
+    }
+    console.log("lead sent to telegram");
+    return res.status(200).json({ ok: true });
   } catch (e) {
     console.error("telegram fetch failed", e.message);
     return res.status(504).json({ ok: false, error: "timeout" });
   }
-  if (!r.ok) {
-    console.error("telegram", r.status, await r.text());
-    return res.status(502).json({ ok: false, error: "telegram" });
-  }
-  return res.status(200).json({ ok: true });
 };
