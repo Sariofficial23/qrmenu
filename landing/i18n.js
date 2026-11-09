@@ -7,7 +7,8 @@ window.I18N = {
     "cta.lead": "Ariza qoldirish",
 
     "hero.pill": "Biznes uchun AI-mahsulotlar",
-    "hero.h1": "Botlar, saytlar va avtomatlashtirish — <span class=\"grad\">siz uchun ishlaydi.</span>",
+    "hero.h1": "Biznesingiz uchun sayt, <span class=\"grad\">kafengiz uchun bot va QR&#8209;menyu.</span>",
+    "cta.call": "Hoziroq qo'ng'iroq",
     "hero.lead": "Sun'iy intellektli Telegram-botlar, yetkazib berish botlari, sotuvchi saytlar hamda kafe va restoranlar uchun avtomatlashtirish tizimlarini yaratamiz. G'oyadan ishga tushirishgacha — hammasini o'zimiz qilamiz.",
     "chip.bot.t": "Telegram-botlar", "chip.bot.s": "AI, yetkazib berish, arizalar",
     "chip.site.t": "Saytlar va lendinglar", "chip.site.s": "Arizalar va sotuvlar uchun",
@@ -97,7 +98,8 @@ window.I18N = {
     "cta.lead": "Оставить заявку",
 
     "hero.pill": "AI-продукты для бизнеса",
-    "hero.h1": "Боты, сайты и автоматизация, <span class=\"grad\">которые работают за&nbsp;вас.</span>",
+    "hero.h1": "Сайт для вашего бизнеса, <span class=\"grad\">бот и QR&#8209;меню для вашего кафе.</span>",
+    "cta.call": "Позвонить сейчас",
     "hero.lead": "Создаём Telegram-ботов с искусственным интеллектом, ботов доставки, продающие сайты и системы автоматизации для кафе и ресторанов. Под ключ — от идеи до запуска.",
     "chip.bot.t": "Telegram-боты", "chip.bot.s": "AI, доставка, заявки",
     "chip.site.t": "Сайты и лендинги", "chip.site.s": "Под заявки и продажи",
