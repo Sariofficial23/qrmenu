@@ -66,10 +66,13 @@
 
   <!-- ПЕРВЫЙ ЭКРАН -->
   <section class="hero">
-    <picture class="hero__bg">
-      <source srcset="assets/hero-bg.webp" type="image/webp">
-      <img src="assets/hero-bg.jpg" width="1671" height="941" fetchpriority="high" decoding="async" data-t-alt="live.alt" alt="">
-    </picture>
+    <div class="hero__bg">
+      <picture>
+        <source srcset="assets/hero-bg.webp" type="image/webp">
+        <img src="assets/hero-bg.jpg" width="1671" height="941" fetchpriority="high" decoding="async" data-t-alt="live.alt" alt="">
+      </picture>
+      <i class="fx fx-lamp" aria-hidden="true"></i><i class="fx fx-streak" aria-hidden="true"></i><i class="fx fx-leak" aria-hidden="true"></i>
+    </div>
     <div class="wrap hero__grid">
       <div class="hero__text">
         <span class="pill reveal"><svg><use href="#i-spark"/></svg> <span data-t="hero.pill"></span></span>
@@ -102,10 +105,13 @@
   <!-- ДЛЯ РЕСТОРАНОВ (второй экран) -->
   <section class="section dark rest" id="restaurants">
     <div class="rest__intro">
-      <picture class="rest__bg">
-        <source srcset="assets/zeyd-bg.webp" type="image/webp">
-        <img src="assets/zeyd-bg.jpg" width="1672" height="941" loading="lazy" decoding="async" data-t-alt="rest.alt" alt="">
-      </picture>
+      <div class="rest__bg">
+        <picture>
+          <source srcset="assets/zeyd-bg.webp" type="image/webp">
+          <img src="assets/zeyd-bg.jpg" width="1672" height="941" loading="lazy" decoding="async" data-t-alt="rest.alt" alt="">
+        </picture>
+        <i class="fx fx-lights" aria-hidden="true"></i><i class="fx fx-streak fx-streak--warm" aria-hidden="true"></i>
+      </div>
       <div class="wrap rest__text">
         <p class="eyebrow reveal" data-t="rest.eye"></p>
         <h2 class="reveal" data-t="rest.h2"></h2>
@@ -133,6 +139,9 @@
       </div>
     </div>
   </section>
+
+  <!-- ЛЕНТА -->
+  <div class="ticker" aria-hidden="true"><div class="ticker__track"><span>Telegram bot</span><i></i><span>QR menu</span><i></i><span>Website</span><i></i><span>Automation</span><i></i><span>Delivery bot</span><i></i><span>AI</span><i></i><span>Telegram bot</span><i></i><span>QR menu</span><i></i><span>Website</span><i></i><span>Automation</span><i></i><span>Delivery bot</span><i></i><span>AI</span><i></i></div></div>
 
   <!-- Цифры (из config.js) -->
   <section class="facts wrap" id="stats"></section>
@@ -292,6 +301,7 @@
   <a class="btn btn--primary btn--block" href="#lead" data-t="cta.lead"></a>
 </div>
 
+<script src="fx.js"></script>
 <script src="main.js"></script>
 </body>
 </html>

@@ -148,6 +148,7 @@
     $$("[data-lang]").forEach((b) => { b.classList.toggle("on", b.dataset.lang === lang); b.setAttribute("aria-pressed", b.dataset.lang === lang); });
     renderStats();
     renderWorks();
+    if (window.FX) window.FX.refresh();
   }
   $$("[data-lang]").forEach((b) => b.addEventListener("click", () => applyLang(b.dataset.lang)));
 
@@ -167,6 +168,7 @@
     if (r) r.checked = true;
   }));
 
+  if (window.FX) window.FX.init();
   applyLang(lang);
   onScroll();
 
@@ -175,7 +177,7 @@
     if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
   }), { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
   $$(".reveal:not(.in)").forEach((r, i) => {
-    r.style.transitionDelay = (r.closest(".hero") ? i * 70 : 0) + "ms";
+    r.style.transitionDelay = (r.closest(".hero") ? i * 70 : Math.min([...(r.parentElement ? r.parentElement.children : [])].indexOf(r), 5) * 90) + "ms";
     io.observe(r);
   });
 
