@@ -143,7 +143,7 @@
     $('meta[name="description"]').content = t("meta.desc");
     $$("[data-t]").forEach((e) => (e.innerHTML = t(e.dataset.t)));
     $$("[data-tp]").forEach((e) => (e.placeholder = t(e.dataset.tp)));
-    $$("[data-t-aria]").forEach((e) => e.setAttribute("aria-label", t(e.dataset.tAria)));
+    $$("[data-t-alt]").forEach((e) => e.setAttribute("alt", t(e.dataset.tAlt)));
     $$("[data-city]").forEach((e) => (e.textContent = (S.city && (S.city[lang] || S.city.uz)) || ""));
     $$("[data-lang]").forEach((b) => { b.classList.toggle("on", b.dataset.lang === lang); b.setAttribute("aria-pressed", b.dataset.lang === lang); });
     renderStats();
@@ -166,23 +166,6 @@
     const r = $(`input[name="service"][value="${a.dataset.pick}"]`);
     if (r) r.checked = true;
   }));
-
-  // Скриншоты реального бота в телефоне — листаются сами, по точкам можно переключить вручную
-  const shots = $$("#shots .shot");
-  const dots = $$("#shotDots i");
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let cur = 0, timer = null;
-  function showShot(i) {
-    cur = (i + shots.length) % shots.length;
-    shots.forEach((x, k) => x.classList.toggle("is-on", k === cur));
-    dots.forEach((x, k) => x.classList.toggle("is-on", k === cur));
-  }
-  function playShots() {
-    clearInterval(timer);
-    if (!reduce) timer = setInterval(() => showShot(cur + 1), 3200);
-  }
-  dots.forEach((d, k) => d.addEventListener("click", () => { showShot(k); playShots(); }));
-  playShots();
 
   applyLang(lang);
   onScroll();

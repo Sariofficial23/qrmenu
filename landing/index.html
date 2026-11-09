@@ -66,7 +66,10 @@
 
   <!-- ПЕРВЫЙ ЭКРАН -->
   <section class="hero">
-    <div class="hero__glow" aria-hidden="true"></div>
+    <picture class="hero__bg">
+      <source srcset="assets/hero-bg.webp" type="image/webp">
+      <img src="assets/hero-bg.jpg" width="1671" height="941" fetchpriority="high" decoding="async" data-t-alt="live.alt" alt="">
+    </picture>
     <div class="wrap hero__grid">
       <div class="hero__text">
         <span class="pill reveal"><svg><use href="#i-spark"/></svg> <span data-t="hero.pill"></span></span>
@@ -86,15 +89,6 @@
       </div>
 
       <div class="hero__visual reveal">
-        <div class="phone" role="img" data-t-aria="live.alt">
-          <div class="phone__notch"></div>
-          <div class="shots" id="shots">
-            <img class="shot is-on" src="assets/bot-1.webp" alt="" width="376" height="686" decoding="async">
-            <img class="shot" src="assets/bot-2.webp" alt="" width="376" height="686" loading="lazy" decoding="async">
-            <img class="shot" src="assets/bot-3.webp" alt="" width="376" height="686" loading="lazy" decoding="async">
-          </div>
-        </div>
-        <div class="shots__dots" id="shotDots" aria-hidden="true"><i class="is-on"></i><i></i><i></i></div>
         <a class="live" href="https://t.me/Navzadostavkabot" target="_blank" rel="noopener" data-bot-link>
           <span class="live__dot" aria-hidden="true"></span>
           <span><b data-t="live.t"></b><small data-t="live.s"></small></span>
