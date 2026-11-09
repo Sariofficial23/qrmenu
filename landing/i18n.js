@@ -13,9 +13,8 @@ window.I18N = {
     "chip.site.t": "Saytlar va lendinglar", "chip.site.s": "Arizalar va sotuvlar uchun",
     "chip.auto.t": "Avtomatlashtirish", "chip.auto.s": "Kafe va restoranlar uchun",
     "hero.cta1": "Loyihani muhokama qilish", "hero.cta2": "Ishlarni ko'rish",
-    "float.a.t": "Yangi buyurtma #248", "float.a.s": "Osh, Lag'mon · 145 000 so'm",
-    "float.b.t": "Bugungi tushum", "float.b.s": "Kechagidan +18%",
-    "chat.status": "bot · onlayn",
+    "live.t": "Haqiqiy yetkazib berish boti", "live.s": "@Navzadostavkabot — Telegram'da sinab ko'ring",
+    "live.alt": "Navzadostavkabot — haqiqiy ishlayotgan yetkazib berish boti menyusi",
 
     "services.eye": "Xizmatlar",
     "services.h2": "Uch yo'nalish. Bitta natija — <span class=\"muted\">ko'proq mijoz va kamroq qo'l mehnati.</span>",
@@ -104,9 +103,8 @@ window.I18N = {
     "chip.site.t": "Сайты и лендинги", "chip.site.s": "Под заявки и продажи",
     "chip.auto.t": "Автоматизация", "chip.auto.s": "Для кафе и ресторанов",
     "hero.cta1": "Обсудить проект", "hero.cta2": "Смотреть работы",
-    "float.a.t": "Новый заказ #248", "float.a.s": "Плов, Лагман · 145 000 сум",
-    "float.b.t": "Выручка сегодня", "float.b.s": "+18% к вчера",
-    "chat.status": "бот · онлайн",
+    "live.t": "Настоящий бот доставки", "live.s": "@Navzadostavkabot — попробуйте в Telegram",
+    "live.alt": "Navzadostavkabot — меню реально работающего бота доставки",
 
     "services.eye": "Услуги",
     "services.h2": "Три направления. Один результат — <span class=\"muted\">больше клиентов и меньше рутины.</span>",

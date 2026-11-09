@@ -85,16 +85,21 @@
         </div>
       </div>
 
-      <div class="hero__visual reveal" aria-hidden="true">
-        <div class="phone">
+      <div class="hero__visual reveal">
+        <div class="phone" role="img" data-t-aria="live.alt">
           <div class="phone__notch"></div>
-          <div class="chat">
-            <div class="chat__head"><span class="chat__ava"><svg><use href="#i-bot"/></svg></span><div><b>Delivery Bot</b><small data-t="chat.status"></small></div></div>
-            <div class="chat__body" id="chat"></div>
+          <div class="shots" id="shots">
+            <img class="shot is-on" src="assets/bot-1.webp" alt="" width="376" height="686" decoding="async">
+            <img class="shot" src="assets/bot-2.webp" alt="" width="376" height="686" loading="lazy" decoding="async">
+            <img class="shot" src="assets/bot-3.webp" alt="" width="376" height="686" loading="lazy" decoding="async">
           </div>
         </div>
-        <div class="float float--a"><span class="sticker sticker--orange"><svg><use href="#i-bell"/></svg></span><div><b data-t="float.a.t"></b><small data-t="float.a.s"></small></div></div>
-        <div class="float float--b"><span class="sticker sticker--blue"><svg><use href="#i-chart"/></svg></span><div><b data-t="float.b.t"></b><small class="up" data-t="float.b.s"></small></div></div>
+        <div class="shots__dots" id="shotDots" aria-hidden="true"><i class="is-on"></i><i></i><i></i></div>
+        <a class="live" href="https://t.me/Navzadostavkabot" target="_blank" rel="noopener" data-bot-link>
+          <span class="live__dot" aria-hidden="true"></span>
+          <span><b data-t="live.t"></b><small data-t="live.s"></small></span>
+          <svg aria-hidden="true"><use href="#i-arrow"/></svg>
+        </a>
       </div>
     </div>
   </section>

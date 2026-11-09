@@ -143,11 +143,11 @@
     $('meta[name="description"]').content = t("meta.desc");
     $$("[data-t]").forEach((e) => (e.innerHTML = t(e.dataset.t)));
     $$("[data-tp]").forEach((e) => (e.placeholder = t(e.dataset.tp)));
+    $$("[data-t-aria]").forEach((e) => e.setAttribute("aria-label", t(e.dataset.tAria)));
     $$("[data-city]").forEach((e) => (e.textContent = (S.city && (S.city[lang] || S.city.uz)) || ""));
     $$("[data-lang]").forEach((b) => { b.classList.toggle("on", b.dataset.lang === lang); b.setAttribute("aria-pressed", b.dataset.lang === lang); });
     renderStats();
     renderWorks();
-    restartChat();
   }
   $$("[data-lang]").forEach((b) => b.addEventListener("click", () => applyLang(b.dataset.lang)));
 
@@ -167,42 +167,22 @@
     if (r) r.checked = true;
   }));
 
-  // Живая переписка с ботом в телефоне
-  const chat = $("#chat");
+  // Скриншоты реального бота в телефоне — листаются сами, по точкам можно переключить вручную
+  const shots = $$("#shots .shot");
+  const dots = $$("#shotDots i");
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let run = 0;
-  function bubble([who, text, btns]) {
-    const m = el("div", "msg msg--" + who, text);
-    if (btns) {
-      const b = el("div", "msg__btns");
-      btns.forEach((x) => b.appendChild(el("span", "", x)));
-      m.appendChild(b);
-    }
-    return m;
+  let cur = 0, timer = null;
+  function showShot(i) {
+    cur = (i + shots.length) % shots.length;
+    shots.forEach((x, k) => x.classList.toggle("is-on", k === cur));
+    dots.forEach((x, k) => x.classList.toggle("is-on", k === cur));
   }
-  async function restartChat() {
-    const id = ++run;
-    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
-    while (id === run) {
-      chat.innerHTML = "";
-      for (const line of t("chat")) {
-        if (id !== run) return;
-        if (line[0] === "bot" && !reduce) {
-          const ty = el("div", "msg msg--bot typing");
-          ty.innerHTML = "<i></i><i></i><i></i>";
-          chat.appendChild(ty);
-          await wait(900);
-          ty.remove();
-          if (id !== run) return;
-        }
-        chat.appendChild(bubble(line));
-        while (chat.children.length > 6) chat.firstChild.remove();
-        await wait(reduce ? 400 : 1400);
-      }
-      if (reduce) return;
-      await wait(3500);
-    }
+  function playShots() {
+    clearInterval(timer);
+    if (!reduce) timer = setInterval(() => showShot(cur + 1), 3200);
   }
+  dots.forEach((d, k) => d.addEventListener("click", () => { showShot(k); playShots(); }));
+  playShots();
 
   applyLang(lang);
   onScroll();
